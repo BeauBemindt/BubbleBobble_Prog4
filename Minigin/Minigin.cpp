@@ -10,7 +10,6 @@
 #include "TextObject.h"
 #include "GameObject.h"
 #include "Scene.h"
-#include "C_Text.h"
 #include "C_FPS.h"
 
 using namespace std;
