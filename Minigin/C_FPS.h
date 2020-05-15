@@ -10,7 +10,7 @@ namespace dae
 	public:
 		C_FPS(GameObject* owner);
 		void Update() override;
-		void Render() const override;
+		void Render() const override = 0;
 	
 		~C_FPS() = default;
 		C_FPS(const C_FPS & other) = delete;
