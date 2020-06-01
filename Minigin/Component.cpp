@@ -3,6 +3,6 @@
 #include "Component.h"
 
 dae::Component::Component(GameObject* owner)
-	: m_pOwner{owner}
+	: m_spOwner{owner}
 {
 }

@@ -12,7 +12,7 @@ namespace dae
 		virtual void Render() const = 0;
 	
 	protected:
-	    GameObject* m_pOwner;
+	    GameObject* m_spOwner;
 	};
 }
 

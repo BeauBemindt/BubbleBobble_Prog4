@@ -1,6 +1,7 @@
 #include "MiniginPCH.h"
 #include "InputManager.h"
 #include <SDL.h>
+#include "xinput.h"
 
 
 bool dae::InputManager::ProcessInput()

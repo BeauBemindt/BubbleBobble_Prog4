@@ -11,6 +11,8 @@
 #include "GameObject.h"
 #include "Scene.h"
 #include "C_FPS.h"
+#include "O_Test.h"
+#include "Subject.h"
 
 using namespace std;
 using namespace std::chrono;
@@ -59,8 +61,11 @@ void dae::Minigin::LoadGame() const
 	to->SetPosition(80, 20);
 	scene.Add(to);
 
+	// tests
 	auto fps = std::make_shared<GameObject>();
 	auto frames = fps->AddComponent<dae::C_FPS>();
+	auto observer = go->AddComponent<dae::O_Test>();
+	frames->GetSubject()->attach(observer);
 	scene.Add(fps);
 }
 
