@@ -9,14 +9,27 @@ dae::Subject::Subject()
 {
 }
 
-void dae::Subject::attach(Observer* observer)
+dae::Subject::~Subject()
 {
-	m_Observers.emplace_back(observer);
-	observer->Attach(this);
 }
 
-void dae::Subject::detach(Observer* observer)
+void dae::Subject::attach(std::shared_ptr<Observer> observer)
 {
-	observer->detach();
-	m_Observers.remove(std::shared_ptr<Observer>(observer));
+	m_Observers.emplace_back(observer);
+}
+
+void dae::Subject::detach(std::shared_ptr<Observer> observer)
+{
+	m_Observers.remove(observer);
+}
+
+void dae::Subject::notify(EVENT event)
+{
+	if (m_Observers.size() != NULL)
+	{
+		for (auto const& obs : m_Observers)
+		{
+			obs->Notify(event);
+		}
+	}
 }

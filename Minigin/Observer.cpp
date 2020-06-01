@@ -1,12 +1,8 @@
 #include "MiniginPCH.h"
 #include "Observer.h"
 
-void dae::Observer::Attach(Subject* subject)
+dae::Observer::Observer(GameObject* owner)
+	: Component(owner)
+	, m_spSubject{ std::make_shared<Subject>() }
 {
-	m_pSubject = subject;
-}
-
-void dae::Observer::detach()
-{
-	m_pSubject = nullptr;
 }

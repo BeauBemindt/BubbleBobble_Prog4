@@ -4,6 +4,7 @@
 #include <string>
 #include "TextObject.h"
 #include "ResourceManager.h"
+#include "InputManager.h"
 
 dae::C_FPS::C_FPS(GameObject* owner)
 	: Component(owner)
@@ -11,6 +12,7 @@ dae::C_FPS::C_FPS(GameObject* owner)
 	, m_LastTime{ std::chrono::high_resolution_clock::now() }
 	, m_spText{}
 	, m_ChangeCounter{1.0f}
+	, m_spSubject{std::make_shared<Subject>()}
 {
 	auto font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
 	m_spText = std::make_shared<TextObject>("0", font);
@@ -22,19 +24,30 @@ void dae::C_FPS::Update()
 	float deltaTime = std::chrono::duration<float>(currentTime - m_LastTime).count();
 	m_LastTime = currentTime;
 	m_ChangeCounter += deltaTime;
-	if (m_ChangeCounter >= 1.0f)
+	if (m_ChangeCounter >=5.0f)
 	{
 		m_FPS = int(1.00f / deltaTime);
 		m_spText->SetText(std::to_string(m_FPS) + "FPS");
 		m_spText->Update();
 
 		m_ChangeCounter = 0.0f;
+
 	}
 
-	m_spText->SetPosition(m_pOwner->m_Transform.GetPosition().x, m_pOwner->m_Transform.GetPosition().y);
+	m_spText->SetPosition(m_spOwner->m_Transform.GetPosition().x, m_spOwner->m_Transform.GetPosition().y);
+
+	if (InputManager::GetInstance().IsPressed(dae::ControllerButton::ButtonA))
+	{
+		m_spSubject->notify(dae::EVENT::a);
+	}
 }
 
 void dae::C_FPS::Render() const
 {
 	m_spText->Render();
+}
+
+std::shared_ptr<dae::Subject> dae::C_FPS::GetSubject()
+{
+	return m_spSubject;
 }
