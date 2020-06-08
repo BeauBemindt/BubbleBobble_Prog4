@@ -56,6 +56,8 @@ bool dae::InputManager::IsPressed(KeyboardButton button) const
 				return e.key.keysym.sym == SDLK_x;
 			case KeyboardButton::ButtonY:
 				return e.key.keysym.sym == SDLK_y;
+			case KeyboardButton::ButtonEsc:
+				return e.key.keysym.sym == SDLK_ESCAPE;
 			}
 		}
 	}
