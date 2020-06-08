@@ -1,6 +1,7 @@
 #pragma once
 #include "SceneObject.h"
 #include "Transform.h"
+#include <SDL.h>
 
 namespace dae
 {
@@ -15,7 +16,7 @@ namespace dae
 		void SetText(const std::string& text);
 		void SetPosition(float x, float y);
 
-		explicit TextObject(const std::string& text, const std::shared_ptr<Font>& font);
+		explicit TextObject(const std::string& text, const std::shared_ptr<Font>& font, const SDL_Color& color = { 255, 255, 255 });
 		virtual ~TextObject() = default;
 		TextObject(const TextObject& other) = delete;
 		TextObject(TextObject&& other) = delete;
@@ -27,5 +28,6 @@ namespace dae
 		Transform m_Transform;
 		std::shared_ptr<Font> m_Font;
 		std::shared_ptr<Texture2D> m_Texture;
+		const SDL_Color m_Color;
 	};
 }
