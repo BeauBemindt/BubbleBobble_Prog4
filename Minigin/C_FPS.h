@@ -3,6 +3,7 @@
 #include <chrono>
 #include "TextObject.h"
 #include "Subject.h"
+#include "Command.h"
 
 namespace dae
 {
@@ -13,6 +14,7 @@ namespace dae
 		void Update() override;
 		void Render() const override;
 		std::shared_ptr<Subject> GetSubject();
+		void HandleInput();
 
 		std::shared_ptr<TextObject> m_spText;
 	private:

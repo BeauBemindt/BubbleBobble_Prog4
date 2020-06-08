@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+
 class Command
 {
 public:
@@ -6,3 +8,11 @@ public:
 	virtual void Execute() = 0;
 };
 
+class FireCommand : public Command
+{
+public:
+	void Execute() override
+	{
+		std::cout << "yep" << std::endl;
+	};
+};

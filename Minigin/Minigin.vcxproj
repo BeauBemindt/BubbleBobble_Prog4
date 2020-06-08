@@ -219,12 +219,12 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="C_FPS.cpp" />
+    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Observer.cpp" />
     <ClCompile Include="O_Test.cpp" />
     <ClCompile Include="Subject.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Minigin.cpp" />
     <ClCompile Include="MiniginPCH.cpp">
