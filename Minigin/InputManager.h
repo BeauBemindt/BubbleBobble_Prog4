@@ -18,7 +18,8 @@ namespace dae
 		ButtonSpace,
 		ButtonB,
 		ButtonX,
-		ButtonY
+		ButtonY,
+		ButtonEsc
 	};
 
 	class InputManager final : public Singleton<InputManager>
