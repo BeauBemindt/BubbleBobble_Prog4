@@ -10,6 +10,17 @@ dae::C_Subject::C_Subject(GameObject* owner)
 {
 }
 
+void dae::C_Subject::attach(std::shared_ptr<C_Observer> observer)
+{
+	m_Observers.emplace_back(observer);
+	observer->Attach(this);
+}
+
+void dae::C_Subject::detach(std::shared_ptr<C_Observer> observer)
+{
+	m_Observers.remove(observer);
+}
+
 void dae::C_Subject::Update()
 {
 }
@@ -18,20 +29,13 @@ void dae::C_Subject::Render() const
 {
 }
 
-void dae::C_Subject::attach(C_Observer* observer)
+void dae::C_Subject::notify(EVENT event)
 {
-	m_Observers.emplace_back(observer);
-}
-
-void dae::C_Subject::detach(C_Observer* observer)
-{
-	m_Observers.remove(std::shared_ptr<C_Observer>(observer));
-}
-
-void dae::C_Subject::notify()
-{
-	std::for_each(m_Observers.begin(), m_Observers.end(), [](const std::shared_ptr<C_Observer>& observer)
+	if (m_Observers.size() != NULL)
+	{
+		for (auto const& obs : m_Observers)
 		{
-			observer->Notify(EVENT::a);
-		});
+			obs->Notify(event);
+		}
+	}
 }

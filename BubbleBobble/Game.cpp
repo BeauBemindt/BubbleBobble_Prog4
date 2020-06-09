@@ -12,7 +12,7 @@
 #include "Scene.h"
 #include "C_FPS.h"
 #include "O_Test.h"
-#include "Subject.h"
+#include "C_Subject.h"
 
 using namespace std;
 using namespace std::chrono;
@@ -55,7 +55,8 @@ void dae::Game::LoadGame() const
 	auto fps = std::make_shared<GameObject>();
 	auto frames = fps->AddComponent<dae::C_FPS>();
 	auto observer = go->AddComponent<dae::O_Test>();
-	frames->GetSubject()->attach(observer);
+	//auto subject = fps->AddComponent<dae::C_Subject>();
+	//subject->attach(observer);
 	scene.Add(fps);
 }
 

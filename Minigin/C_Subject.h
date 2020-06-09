@@ -1,23 +1,35 @@
 #pragma once
-#include "Component.h"
 #include <list>
+#include "Component.h"
 
 namespace dae
 {
+    enum class EVENT
+    {
+        // Player Events
+        a,
+        b,
+        c,
+
+        // Enemy Events
+        d,
+        e,
+        f
+    };
+
     class C_Observer;
-    class C_Subject : public dae::Component
+    class C_Subject : Component
     {
     public:
 
         C_Subject(GameObject* owner);
 
+        void attach(std::shared_ptr<C_Observer> observer);
+        void detach(std::shared_ptr<C_Observer> observer);
         void Update() override;
         void Render() const override;
 
-        void attach(C_Observer* observer);
-        void detach(C_Observer* observer);
-
-        void notify();
+        void notify(EVENT event);
 
     private:
 

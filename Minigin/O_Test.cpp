@@ -2,7 +2,7 @@
 #include "O_Test.h"
 
 dae::O_Test::O_Test(GameObject* owner)
-	: Observer(owner)
+	: C_Observer(owner)
 {
 }
 
