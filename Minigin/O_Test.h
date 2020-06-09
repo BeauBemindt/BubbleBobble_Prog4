@@ -1,9 +1,9 @@
 #pragma once
-#include "Observer.h"
+#include "C_Observer.h"
 
 namespace dae
 {
-	class O_Test : public Observer
+	class O_Test : public C_Observer
 	{
 	public:
 		O_Test(GameObject* owner);

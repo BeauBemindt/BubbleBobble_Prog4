@@ -5,6 +5,7 @@
 #include "TextObject.h"
 #include "ResourceManager.h"
 #include "InputManager.h"
+#include "C_Subject.h"
 
 dae::C_FPS::C_FPS(GameObject* owner)
 	: Component(owner)
@@ -12,7 +13,6 @@ dae::C_FPS::C_FPS(GameObject* owner)
 	, m_LastTime{ std::chrono::high_resolution_clock::now() }
 	, m_spText{}
 	, m_ChangeCounter{0.0f}
-	, m_spSubject{std::make_shared<Subject>()}
 {
 	auto font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 24);
 	m_spText = std::make_shared<TextObject>("0", font, SDL_Color{255, 255, 0});
@@ -38,7 +38,7 @@ void dae::C_FPS::Update()
 
 	if (InputManager::GetInstance().IsPressed(dae::ControllerButton::ButtonA))
 	{
-		m_spSubject->notify(dae::EVENT::a);
+		m_spOwner->GetComponent<C_Subject>()->notify(EVENT::a);
 	}
 	HandleInput();
 }
@@ -46,11 +46,6 @@ void dae::C_FPS::Update()
 void dae::C_FPS::Render() const
 {
 	m_spText->Render();
-}
-
-std::shared_ptr<dae::Subject> dae::C_FPS::GetSubject()
-{
-	return m_spSubject;
 }
 
 void dae::C_FPS::HandleInput()
