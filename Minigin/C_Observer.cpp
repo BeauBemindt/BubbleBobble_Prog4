@@ -9,5 +9,5 @@ dae::C_Observer::C_Observer(GameObject* owner)
 
 void dae::C_Observer::Attach(C_Subject* subject)
 {
-	m_spSubject = std::shared_ptr<C_Subject>(subject);
+	m_spSubject = subject;
 }

@@ -14,6 +14,6 @@ namespace dae
         virtual void Render() const override = 0;
         virtual void Attach(C_Subject* subject);
     private:
-        std::shared_ptr<C_Subject> m_spSubject;
+        C_Subject* m_spSubject;
     };
 }

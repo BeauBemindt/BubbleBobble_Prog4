@@ -6,6 +6,7 @@
 #include "SceneManager.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
+#include "TimeManager.h"
 #include <SDL.h>
 #include "TextObject.h"
 #include "GameObject.h"
@@ -13,6 +14,8 @@
 #include "C_FPS.h"
 #include "O_Test.h"
 #include "C_Subject.h"
+#include "C_Movement.h"
+#include "C_InputHandling.h"
 
 using namespace std;
 using namespace std::chrono;
@@ -47,16 +50,23 @@ void dae::Game::LoadGame() const
 {
 	auto& scene = SceneManager::GetInstance().CreateScene("TestLevel");
 
+	// tests
 	auto go = std::make_shared<GameObject>();
 	go->SetTexture("background.jpg");
 	scene.Add(go);
 
-	// tests
+	go = std::make_shared<GameObject>();
+	go->SetTexture("logo.png");
+	go->SetPosition(216, 180);
+	auto movement = go->AddComponent<dae::C_Movement>();
+	auto inputHandler = go->AddComponent<dae::C_InputHandling>();
+	scene.Add(go);
+
 	auto fps = std::make_shared<GameObject>();
 	auto frames = fps->AddComponent<dae::C_FPS>();
 	auto observer = go->AddComponent<dae::O_Test>();
-	//auto subject = fps->AddComponent<dae::C_Subject>();
-	//subject->attach(observer);
+	auto subject = fps->AddComponent<dae::C_Subject>();
+	subject->attach(observer);
 	scene.Add(fps);
 }
 
@@ -81,15 +91,17 @@ void dae::Game::Run()
 		auto& renderer = Renderer::GetInstance();
 		auto& sceneManager = SceneManager::GetInstance();
 		auto& input = InputManager::GetInstance();
+		auto& time = TimeManager::GetInstance();
 
 		bool doContinue = true;
 		while (doContinue)
 		{
 			const auto currentTime = high_resolution_clock::now();
 
-			doContinue = !input.IsPressed(KeyboardButton::ButtonEsc);
+			doContinue = input.ProcessInput();
 			sceneManager.Update();
 			renderer.Render();
+			time.Update();
 
 			auto sleepTime = duration_cast<duration<float>>(currentTime + milliseconds(MsPerFrame) - high_resolution_clock::now());
 			this_thread::sleep_for(sleepTime);

@@ -13,6 +13,7 @@
 #include "C_FPS.h"
 #include "O_Test.h"
 #include "C_Subject.h"
+#include "C_Movement.h"
 
 using namespace std;
 using namespace std::chrono;

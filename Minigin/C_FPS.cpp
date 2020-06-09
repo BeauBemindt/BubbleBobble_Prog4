@@ -6,6 +6,7 @@
 #include "ResourceManager.h"
 #include "InputManager.h"
 #include "C_Subject.h"
+#include "TimeManager.h"
 
 dae::C_FPS::C_FPS(GameObject* owner)
 	: Component(owner)
@@ -21,12 +22,11 @@ dae::C_FPS::C_FPS(GameObject* owner)
 void dae::C_FPS::Update()
 {
 	const auto currentTime = std::chrono::high_resolution_clock::now();
-	float deltaTime = std::chrono::duration<float>(currentTime - m_LastTime).count();
 	m_LastTime = currentTime;
-	m_ChangeCounter += deltaTime;
+	m_ChangeCounter += TimeManager::GetInstance().GetDeltaTime();
 	if (m_ChangeCounter >=1.0f)
 	{
-		m_FPS = int(1.00f / deltaTime);
+		m_FPS = int(1.00f / TimeManager::GetInstance().GetDeltaTime());
 		m_spText->SetText(std::to_string(m_FPS) + "FPS");
 		m_spText->Update();
 
@@ -40,19 +40,10 @@ void dae::C_FPS::Update()
 	{
 		m_spOwner->GetComponent<C_Subject>()->notify(EVENT::a);
 	}
-	HandleInput();
+	//HandleInput();
 }
 
 void dae::C_FPS::Render() const
 {
 	m_spText->Render();
-}
-
-void dae::C_FPS::HandleInput()
-{
-	Command* command = InputManager::GetInstance().HandleInput();
-	if (command)
-	{
-		command->Execute();
-	}
 }

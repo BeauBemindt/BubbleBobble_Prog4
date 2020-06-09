@@ -12,7 +12,6 @@ namespace dae
 		C_FPS(GameObject* owner);
 		void Update() override;
 		void Render() const override;
-		void HandleInput();
 
 	private:
 		int m_FPS;

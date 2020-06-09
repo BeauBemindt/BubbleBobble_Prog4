@@ -18,7 +18,7 @@ namespace dae
     };
 
     class C_Observer;
-    class C_Subject : Component
+    class C_Subject : public Component
     {
     public:
 
