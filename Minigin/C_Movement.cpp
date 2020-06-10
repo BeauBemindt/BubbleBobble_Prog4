@@ -3,14 +3,19 @@
 #include "GameObject.h"
 #include "TimeManager.h"
 #include "InputManager.h"
+#include "C_InputHandling.h"
+#include "PlayerState.h"
 
 dae::C_Movement::C_Movement(GameObject* owner)
 	: Component(owner)
-	, m_Velocity{100.0f}
-	, m_Gravity{100.0f}
+	, m_VelocityX{0.0f}
+	, m_Gravity{200.0f}
+	, m_Speed{100.0f}
 	, m_Jumping{false}
 	, m_JumpTimer{1.0f}
+	, m_VelocityY{}
 {
+	m_VelocityY = m_Gravity;
 }
 
 void dae::C_Movement::Update()
@@ -18,19 +23,23 @@ void dae::C_Movement::Update()
 	if (m_Jumping)
 	{
 		m_JumpTimer -= TimeManager::GetInstance().GetDeltaTime();
-		m_Gravity = 100.0f - m_JumpTimer * 200;
+		m_VelocityY = m_Gravity - m_JumpTimer * m_Gravity * 2;
 		if (m_JumpTimer <= 0.0f)
 		{
 			m_Jumping = false;
-			m_Gravity = 100.0f;
 			m_JumpTimer = 1.0f;
+			m_VelocityY = m_Gravity;
+			*m_spOwner->GetComponent<C_InputHandling>()->GetState() = PlayerState::m_RunningState;
+			PlayerState::m_RunningState.OnEnter();
 		}
 	}
 	if (m_spOwner->m_Transform.GetPosition().y <= 300.0f || m_Jumping)
 	{
 		m_spOwner->SetPosition(m_spOwner->m_Transform.GetPosition().x,
-			m_spOwner->m_Transform.GetPosition().y + m_Gravity * TimeManager::GetInstance().GetDeltaTime());
+			m_spOwner->m_Transform.GetPosition().y + m_VelocityY * TimeManager::GetInstance().GetDeltaTime());
 	}
+	m_spOwner->SetPosition(m_spOwner->m_Transform.GetPosition().x + m_VelocityX * TimeManager::GetInstance().GetDeltaTime(),
+		m_spOwner->m_Transform.GetPosition().y);
 }
 
 void dae::C_Movement::Render() const
@@ -39,8 +48,7 @@ void dae::C_Movement::Render() const
 
 void dae::C_Movement::Move(float multiplier)
 {
-	m_spOwner->SetPosition(m_spOwner->m_Transform.GetPosition().x + m_Velocity * multiplier * TimeManager::GetInstance().GetDeltaTime(),
-		m_spOwner->m_Transform.GetPosition().y);
+	m_VelocityX = m_Speed * multiplier;
 }
 
 void dae::C_Movement::Jump()

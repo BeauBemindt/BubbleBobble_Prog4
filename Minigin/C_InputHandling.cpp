@@ -1,30 +1,29 @@
 #include "MiniginPCH.h"
 #include "C_InputHandling.h"
-#include "InputManager.h"
+#include "Command.h"
+#include "PlayerState.h"
+
+dae::RunningState dae::PlayerState::m_RunningState{};
+dae::JumpingState dae::PlayerState::m_JumpingState{};
 
 dae::C_InputHandling::C_InputHandling(GameObject* owner)
 	: Component(owner)
 	, m_Commands{}
+	, m_pState{ &PlayerState::m_RunningState }
 {
 }
 
 void dae::C_InputHandling::Update()
 {
-	HandleInput();
+	m_pState->Update();
+	m_pState->HandleInput(m_spOwner);
 }
 
 void dae::C_InputHandling::Render() const
 {
 }
 
-void dae::C_InputHandling::HandleInput()
+dae::PlayerState* dae::C_InputHandling::GetState()
 {
-	m_Commands = InputManager::GetInstance().HandleInput();
-	for (auto command : m_Commands)
-	{
-		if (command)
-		{
-			command->Execute(m_spOwner);
-		}
-	}
+	return m_pState;
 }

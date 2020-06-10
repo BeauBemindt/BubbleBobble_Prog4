@@ -31,6 +31,12 @@
     <Filter Include="Source Files\Components\Observers">
       <UniqueIdentifier>{30db577d-2421-41eb-8d5c-626b365db664}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\FSM">
+      <UniqueIdentifier>{9aaaad02-b88c-473f-82d2-0412677e1ece}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\FSM">
+      <UniqueIdentifier>{2f6e2fa3-5928-412e-8097-58ba99aa4a83}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MiniginPCH.h">
@@ -99,14 +105,17 @@
     <ClInclude Include="O_Test.h">
       <Filter>Header Files\Components\Observsers</Filter>
     </ClInclude>
-    <ClInclude Include="State.h">
-      <Filter>Header Files\Implementation</Filter>
-    </ClInclude>
     <ClInclude Include="TimeManager.h">
       <Filter>Header Files\Implementation</Filter>
     </ClInclude>
     <ClInclude Include="C_Sprite.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerState.h">
+      <Filter>Header Files\FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>Header Files\FSM</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -173,14 +182,17 @@
     <ClCompile Include="O_Test.cpp">
       <Filter>Source Files\Components\Observers</Filter>
     </ClCompile>
-    <ClCompile Include="State.cpp">
-      <Filter>Source Files\Implementation</Filter>
-    </ClCompile>
     <ClCompile Include="Component.cpp">
       <Filter>Source Files\Implementation</Filter>
     </ClCompile>
     <ClCompile Include="C_Sprite.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerState.cpp">
+      <Filter>Source Files\FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>Source Files\FSM</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

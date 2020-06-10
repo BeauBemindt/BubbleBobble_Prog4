@@ -3,6 +3,8 @@
 #include "GameObject.h"
 #include "C_Movement.h"
 #include "C_Sprite.h"
+#include "C_InputHandling.h"
+#include "PlayerState.h"
 
 namespace dae
 {
@@ -29,12 +31,15 @@ namespace dae
 		{
 			object->GetComponent<C_Movement>()->Move(1.0f);
 			auto sprite = object->GetComponent<C_Sprite>();
-			float x = float(sprite->GetRect().x + 34);
-			if (x > 256)
+			if (sprite->AnimationTimeReached())
 			{
-				x = 0;
+				float x = float(sprite->GetRect().x + 34);
+				if (x > 256)
+				{
+					x = 0;
+				}
+				sprite->SetRect(x, 0.0f, float(sprite->GetRect().w), float(sprite->GetRect().h));
 			}
-			sprite->SetRect(x, 0.0f, float(sprite->GetRect().w), float(sprite->GetRect().h));
 		}
 	};
 
@@ -45,12 +50,24 @@ namespace dae
 		{
 			object->GetComponent<C_Movement>()->Move(-1.0f);
 			auto sprite = object->GetComponent<C_Sprite>();
-			float x = float(sprite->GetRect().x + 34);
-			if (x > 256)
+			if (sprite->AnimationTimeReached())
 			{
-				x = 0;
+				float x = float(sprite->GetRect().x + 34);
+				if (x > 256)
+				{
+					x = 0;
+				}
+				sprite->SetRect(x, 16.0f, float(sprite->GetRect().w), float(sprite->GetRect().h));
 			}
-			sprite->SetRect(x, 16.0f, float(sprite->GetRect().w), float(sprite->GetRect().h));
+		}
+	};
+
+	class StandStillCommand : public Command
+	{
+	public:
+		void Execute(GameObject* object) override
+		{
+			object->GetComponent<C_Movement>()->Move(0.0f);
 		}
 	};
 
@@ -60,6 +77,8 @@ namespace dae
 		void Execute(GameObject* object) override
 		{
 			object->GetComponent<C_Movement>()->Jump();
+			*object->GetComponent<C_InputHandling>()->GetState() = PlayerState::m_JumpingState;
+			PlayerState::m_JumpingState.OnEnter();
 		}
 	};
 }

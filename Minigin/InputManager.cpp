@@ -1,6 +1,17 @@
 #include "MiniginPCH.h"
 #include "InputManager.h"
 #include <SDL.h>
+#include "Command.h"
+
+dae::InputManager::InputManager()
+	: m_Fire{std::make_unique<FireCommand>()}
+	, m_Jump{std::make_unique<JumpCommand>()}
+	, m_MoveLeft{ std::make_unique<MoveLeftCommand>() }
+	, m_MoveRight{ std::make_unique<MoveRightCommand>() }
+	, m_StandStill{ std::make_unique<StandStillCommand>() }
+{
+
+}
 
 bool dae::InputManager::ProcessInput()
 {
@@ -43,20 +54,27 @@ bool dae::InputManager::IsPressed(ControllerButton button) const
 	}
 }
 
-std::vector<dae::Command*>& dae::InputManager::HandleInput()
+std::vector<dae::Command*>& dae::InputManager::HandleInput(State::stateID id)
 {
 	m_Commands.clear();
 	if (IsPressed(ControllerButton::ButtonA))
 	{
 		m_Commands.push_back(m_Jump.get());
 	}
-	if (IsPressed(ControllerButton::ButtonRight))
+	if (id != State::stateID::Jumping)
 	{
-		m_Commands.push_back(m_MoveRight.get());
-	}
-	if (IsPressed(ControllerButton::ButtonLeft))
-	{
-		m_Commands.push_back(m_MoveLeft.get());
+		if (IsPressed(ControllerButton::ButtonRight))
+		{
+			m_Commands.push_back(m_MoveRight.get());
+		}
+		else if (IsPressed(ControllerButton::ButtonLeft))
+		{
+			m_Commands.push_back(m_MoveLeft.get());
+		}
+		else
+		{
+			m_Commands.push_back(m_StandStill.get());
+		}
 	}
 
 	// Nothing pressed, so do nothing.

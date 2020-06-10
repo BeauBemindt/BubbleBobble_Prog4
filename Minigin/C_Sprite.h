@@ -15,6 +15,7 @@ namespace dae
 		void Scale(float scale);
 		void SetRect(float x, float y, float width, float height);
 		SDL_Rect GetRect() const;
+		bool AnimationTimeReached();
 	private:
 		std::shared_ptr<Texture2D> m_Texture;
 		float m_Width;
@@ -22,6 +23,7 @@ namespace dae
 		float m_PosX;
 		float m_PosY;
 		SDL_Rect m_Rect;
+		float m_AnimationTimer;
 	};
 }
 

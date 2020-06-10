@@ -13,8 +13,10 @@ namespace dae
 		void Jump();
 
 	private:
-		float m_Velocity;
+		float m_VelocityX;
+		float m_VelocityY;
 		float m_Gravity;
+		float m_Speed;
 		bool m_Jumping;
 		float m_JumpTimer;
 	};
