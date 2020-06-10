@@ -3,6 +3,7 @@
 #include "C_Sprite.h"
 #include "GameObject.h"
 #include "ResourceManager.h"
+#include "TimeManager.h"
 
 dae::C_Sprite::C_Sprite(GameObject* owner)
 	: Component(owner)
@@ -12,6 +13,7 @@ dae::C_Sprite::C_Sprite(GameObject* owner)
 	, m_PosX{m_spOwner->m_Transform.GetPosition().x}
 	, m_PosY{ m_spOwner->m_Transform.GetPosition().y}
 	, m_Rect{}
+	, m_AnimationTimer{}
 {
 }
 
@@ -19,6 +21,7 @@ void dae::C_Sprite::Update()
 {
 	m_PosX = m_spOwner->m_Transform.GetPosition().x;
 	m_PosY = m_spOwner->m_Transform.GetPosition().y;
+	m_AnimationTimer += TimeManager::GetInstance().GetDeltaTime();
 }
 
 void dae::C_Sprite::Render() const
@@ -48,4 +51,14 @@ void dae::C_Sprite::SetRect(float x, float y, float width, float height)
 SDL_Rect dae::C_Sprite::GetRect() const
 {
 	return m_Rect;
+}
+
+bool dae::C_Sprite::AnimationTimeReached()
+{
+	if (m_AnimationTimer >= 0.1f)
+	{
+		m_AnimationTimer = 0.0f;
+		return true;
+	}
+	return false;
 }

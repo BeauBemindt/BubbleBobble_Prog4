@@ -199,6 +199,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="C_InputHandling.h" />
     <ClInclude Include="C_Movement.h" />
     <ClInclude Include="C_Observer.h" />
+    <ClInclude Include="PlayerState.h" />
     <ClInclude Include="C_Sprite.h" />
     <ClInclude Include="O_Test.h" />
     <ClInclude Include="C_Subject.h" />
@@ -225,6 +226,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClCompile Include="C_FPS.cpp" />
     <ClCompile Include="C_InputHandling.cpp" />
     <ClCompile Include="C_Movement.cpp" />
+    <ClCompile Include="PlayerState.cpp" />
     <ClCompile Include="C_Sprite.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="C_Observer.cpp" />
