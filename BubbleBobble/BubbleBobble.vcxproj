@@ -157,6 +157,7 @@
   <ItemGroup>
     <ClCompile Include="BubbleBobble.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="PlayerCharacter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Minigin\Minigin.vcxproj">
@@ -165,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
+    <ClInclude Include="PlayerCharacter.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

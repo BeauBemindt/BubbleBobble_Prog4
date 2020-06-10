@@ -16,6 +16,7 @@
 #include "C_Subject.h"
 #include "C_Movement.h"
 #include "C_InputHandling.h"
+#include "PlayerCharacter.h"
 
 using namespace std;
 using namespace std::chrono;
@@ -55,11 +56,7 @@ void dae::Game::LoadGame() const
 	go->SetTexture("background.jpg");
 	scene.Add(go);
 
-	go = std::make_shared<GameObject>();
-	go->SetTexture("logo.png");
-	go->SetPosition(216, 180);
-	auto movement = go->AddComponent<dae::C_Movement>();
-	auto inputHandler = go->AddComponent<dae::C_InputHandling>();
+	go = std::make_shared<PlayerCharacter>();
 	scene.Add(go);
 
 	auto fps = std::make_shared<GameObject>();
