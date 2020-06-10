@@ -49,3 +49,28 @@ void dae::Renderer::RenderTexture(const Texture2D& texture, const float x, const
 	dst.h = static_cast<int>(height);
 	SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), nullptr, &dst);
 }
+
+void dae::Renderer::RenderClipTexture(const Texture2D& texture, const float x, const float y, const SDL_Rect* clip)
+{
+	//Set rendering space and render to screen
+	SDL_Rect renderQuad{};
+	renderQuad.x = static_cast<int>(x);
+	renderQuad.y = static_cast<int>(y);
+	SDL_QueryTexture(texture.GetSDLTexture(), nullptr, nullptr, &renderQuad.w, &renderQuad.h);
+
+	//Render to screen
+	SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), clip, &renderQuad);
+}
+
+void dae::Renderer::RenderClipTexture(const Texture2D& texture, const float x, const float y, const float width, const float height, const SDL_Rect* clip)
+{
+	//Set rendering space and render to screen
+	SDL_Rect renderQuad{};
+	renderQuad.x = static_cast<int>(x);
+	renderQuad.y = static_cast<int>(y);
+	renderQuad.w = static_cast<int>(width);
+	renderQuad.h = static_cast<int>(height);
+
+	//Render to screen
+	SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), clip, &renderQuad);
+}

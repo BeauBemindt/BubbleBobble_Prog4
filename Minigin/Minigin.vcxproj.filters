@@ -13,6 +13,24 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Components">
+      <UniqueIdentifier>{fd0d946a-4a75-4e5e-ba05-c51775003d2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Implementation">
+      <UniqueIdentifier>{d6f0090f-9c2f-4b3a-8eab-047a3dcebdf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Components">
+      <UniqueIdentifier>{57661153-232d-4f02-87af-115ae01024c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Implementation">
+      <UniqueIdentifier>{50768d73-9592-4b12-9475-e726536da314}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Components\Observsers">
+      <UniqueIdentifier>{9b93a5ab-9d18-48bb-b791-1eb0060d050c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\Observers">
+      <UniqueIdentifier>{30db577d-2421-41eb-8d5c-626b365db664}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MiniginPCH.h">
@@ -57,34 +75,37 @@
     <ClInclude Include="Minigin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="C_FPS.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Command.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="State.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="O_Test.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="C_Subject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="C_Observer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TimeManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="C_Movement.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="C_InputHandling.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="C_Movement.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="C_Observer.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="C_Subject.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Command.h">
+      <Filter>Header Files\Implementation</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Header Files\Implementation</Filter>
+    </ClInclude>
+    <ClInclude Include="O_Test.h">
+      <Filter>Header Files\Components\Observsers</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>Header Files\Implementation</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeManager.h">
+      <Filter>Header Files\Implementation</Filter>
+    </ClInclude>
+    <ClInclude Include="C_Sprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -125,37 +146,40 @@
     <ClCompile Include="Minigin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Component.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="C_FPS.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Command.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="State.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="O_Test.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="InputManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C_Subject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="C_Observer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TimeManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="C_Movement.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="C_FPS.cpp">
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="C_InputHandling.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="C_Movement.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="C_Observer.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="C_Subject.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeManager.cpp">
+      <Filter>Source Files\Implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="Command.cpp">
+      <Filter>Source Files\Implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="O_Test.cpp">
+      <Filter>Source Files\Components\Observers</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>Source Files\Implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Source Files\Implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="C_Sprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

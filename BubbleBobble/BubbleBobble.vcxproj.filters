@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Prefabs">
+      <UniqueIdentifier>{e036f9e8-0552-461b-af79-fd89f1a3f9c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Prefabs">
+      <UniqueIdentifier>{cde5f31e-4dcf-42b5-bee2-f75899572f0c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BubbleBobble.cpp">
@@ -21,10 +27,16 @@
     <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerCharacter.cpp">
+      <Filter>Header Files\Prefabs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerCharacter.h">
+      <Filter>Header Files\Prefabs</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
