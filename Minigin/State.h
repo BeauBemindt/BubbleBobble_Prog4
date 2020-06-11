@@ -5,7 +5,8 @@ public:
 	enum class stateID
 	{
 		Running,
-		Jumping
+		Jumping,
+		Falling
 	};
 };
 

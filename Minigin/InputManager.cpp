@@ -57,26 +57,25 @@ bool dae::InputManager::IsPressed(ControllerButton button) const
 std::vector<dae::Command*>& dae::InputManager::HandleInput(State::stateID id)
 {
 	m_Commands.clear();
-	if (IsPressed(ControllerButton::ButtonA))
+	if (IsPressed(ControllerButton::ButtonRight))
 	{
-		m_Commands.push_back(m_Jump.get());
+		m_Commands.push_back(m_MoveRight.get());
 	}
-	if (id != State::stateID::Jumping)
+	else if (IsPressed(ControllerButton::ButtonLeft))
 	{
-		if (IsPressed(ControllerButton::ButtonRight))
+		m_Commands.push_back(m_MoveLeft.get());
+	}
+	else
+	{
+		m_Commands.push_back(m_StandStill.get());
+	}
+	if (id == State::stateID::Running)
+	{
+		if (IsPressed(ControllerButton::ButtonA))
 		{
-			m_Commands.push_back(m_MoveRight.get());
-		}
-		else if (IsPressed(ControllerButton::ButtonLeft))
-		{
-			m_Commands.push_back(m_MoveLeft.get());
-		}
-		else
-		{
-			m_Commands.push_back(m_StandStill.get());
+			m_Commands.push_back(m_Jump.get());
 		}
 	}
-
 	// Nothing pressed, so do nothing.
 	return m_Commands;
 }

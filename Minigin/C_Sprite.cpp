@@ -8,8 +8,8 @@
 dae::C_Sprite::C_Sprite(GameObject* owner)
 	: Component(owner)
 	, m_Texture{}
-	, m_Width{100}
-	, m_Height{100}
+	, m_Width{32}
+	, m_Height{32}
 	, m_PosX{m_spOwner->m_Transform.GetPosition().x}
 	, m_PosY{ m_spOwner->m_Transform.GetPosition().y}
 	, m_Rect{}

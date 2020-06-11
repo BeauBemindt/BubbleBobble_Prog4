@@ -10,9 +10,7 @@ namespace dae
 		void Update() override;
 		void Render() const override;
 		void Move(float multiplier);
-		void Jump();
-		void EndJumping();
-		void Fall();
+		void Fall(float multiplier);
 		float GetGravity() const;
 		float GetSpeed() const;
 
@@ -22,6 +20,5 @@ namespace dae
 		float m_Gravity;
 		float m_Speed;
 		bool m_Jumping;
-		float m_JumpTimer;
 	};
 }

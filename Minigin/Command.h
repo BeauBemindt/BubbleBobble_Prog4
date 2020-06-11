@@ -76,9 +76,9 @@ namespace dae
 	public:
 		void Execute(GameObject* object) override
 		{
-			object->GetComponent<C_Movement>()->Jump();
-			*object->GetComponent<C_InputHandling>()->GetState() = PlayerState::m_JumpingState;
-			PlayerState::m_JumpingState.OnEnter();
+			object->GetComponent<C_InputHandling>()->GetState()->OnExit(object);
+			object->GetComponent<C_InputHandling>()->SetState(new JumpingState());
+			object->GetComponent<C_InputHandling>()->GetState()->OnEnter(object);
 		}
 	};
 }

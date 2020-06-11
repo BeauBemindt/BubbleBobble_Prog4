@@ -12,7 +12,6 @@ dae::C_Movement::C_Movement(GameObject* owner)
 	, m_Gravity{300.0f}
 	, m_Speed{100.0f}
 	, m_Jumping{false}
-	, m_JumpTimer{1.0f}
 	, m_VelocityY{}
 {
 	m_VelocityY = m_Gravity;
@@ -20,22 +19,8 @@ dae::C_Movement::C_Movement(GameObject* owner)
 
 void dae::C_Movement::Update()
 {
-	if (m_Jumping)
-	{
-		m_JumpTimer -= TimeManager::GetInstance().GetDeltaTime();
-		if (m_JumpTimer < 0.0f)
-		{
-			m_JumpTimer = 0.0f;
-		}
-		m_VelocityY = m_Gravity - m_JumpTimer * m_Gravity * 2;
-	}
-	if (m_spOwner->m_Transform.GetPosition().y <= 300.0f || m_Jumping)
-	{
-		m_spOwner->SetPosition(m_spOwner->m_Transform.GetPosition().x,
-			m_spOwner->m_Transform.GetPosition().y + m_VelocityY * TimeManager::GetInstance().GetDeltaTime());
-	}
 	m_spOwner->SetPosition(m_spOwner->m_Transform.GetPosition().x + m_VelocityX * TimeManager::GetInstance().GetDeltaTime(),
-		m_spOwner->m_Transform.GetPosition().y);
+		m_spOwner->m_Transform.GetPosition().y + m_VelocityY * TimeManager::GetInstance().GetDeltaTime());
 }
 
 void dae::C_Movement::Render() const
@@ -47,29 +32,9 @@ void dae::C_Movement::Move(float multiplier)
 	m_VelocityX = m_Speed * multiplier;
 }
 
-void dae::C_Movement::Jump()
+void dae::C_Movement::Fall(float multiplier)
 {
-	m_Jumping = true;
-}
-
-void dae::C_Movement::EndJumping()
-{
-	if (m_JumpTimer < 0.8)
-	{
-		m_JumpTimer = 1.0f;
-		m_VelocityY = m_Gravity;
-		m_Jumping = false;
-		*m_spOwner->GetComponent<C_InputHandling>()->GetState() = PlayerState::m_RunningState;
-		PlayerState::m_RunningState.OnEnter();
-	}
-}
-
-void dae::C_Movement::Fall()
-{
-	m_VelocityY = m_Gravity;
-	m_Jumping = false;
-	//*m_spOwner->GetComponent<C_InputHandling>()->GetState() = PlayerState::m_RunningState;
-	//PlayerState::m_RunningState.OnEnter();
+	m_VelocityY = m_Gravity * multiplier;
 }
 
 float dae::C_Movement::GetGravity() const

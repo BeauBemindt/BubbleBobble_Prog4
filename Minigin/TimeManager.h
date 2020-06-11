@@ -9,9 +9,14 @@ namespace dae
 	public:
 		void Update();
 		float GetDeltaTime();
+		void StartTiming();
+		void StopTimimg();
+		float GetTime();
 	private:
 		std::chrono::high_resolution_clock::time_point m_LastTime{};
 		float m_DeltaTime{};
+		bool m_Timing{};
+		float m_Time{};
 	};
 }
 

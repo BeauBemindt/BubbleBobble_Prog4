@@ -117,8 +117,11 @@
     <ClInclude Include="State.h">
       <Filter>Header Files\FSM</Filter>
     </ClInclude>
+    <ClInclude Include="LevelManager.h">
+      <Filter>Header Files\Implementation</Filter>
+    </ClInclude>
     <ClInclude Include="C_Collision.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -197,8 +200,11 @@
     <ClCompile Include="State.cpp">
       <Filter>Source Files\FSM</Filter>
     </ClCompile>
+    <ClCompile Include="LevelManager.cpp">
+      <Filter>Source Files\Implementation</Filter>
+    </ClCompile>
     <ClCompile Include="C_Collision.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

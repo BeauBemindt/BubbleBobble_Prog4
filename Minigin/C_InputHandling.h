@@ -11,11 +11,12 @@ namespace dae
 		C_InputHandling(GameObject* owner);
 		void Update() override;
 		void Render() const override;
-		PlayerState* GetState() const;
+		std::shared_ptr<PlayerState> GetState();
+		void SetState(PlayerState* state);
 	
 	private:
 		std::vector<Command*> m_Commands;
-		PlayerState* m_pState;
+		std::shared_ptr<PlayerState> m_spState;
 	};
 }
 

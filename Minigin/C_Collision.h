@@ -9,7 +9,8 @@ namespace dae
 		C_Collision(GameObject* owner);
 		void Update() override;
 		void Render() const override;
-		void HandleCollision(GameObject* other);
+		bool HandleCollision(GameObject* other);
+		bool CheckCollisionToFall(GameObject* other);
 	private:
 	};
 }

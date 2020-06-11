@@ -5,39 +5,46 @@
 namespace dae
 {
 	class Command;
-	class JumpingState;
-	class RunningState;
 	class PlayerState
 	{
 	public:
-
-		static JumpingState m_JumpingState;
-		static RunningState m_RunningState;
-
-		virtual void Update() = 0;
-		virtual void OnEnter() = 0;
-		virtual void OnExit() = 0;
+		virtual ~PlayerState() = default;
+		virtual void Update(GameObject* owner) = 0;
+		virtual void OnEnter(GameObject* owner) = 0;
+		virtual void OnExit(GameObject* owner) = 0;
 		virtual void HandleInput(GameObject* owner) = 0;
+
+		static State::stateID m_ID;
 	protected:
 		std::vector<Command*> m_Commands;
-		State::stateID m_ID{};
 	};
 
 	class JumpingState : public PlayerState
 	{
 	public:
-		void Update() override;
-		void OnEnter() override;
-		void OnExit() override;
+		void Update(GameObject* owner) override;
+		void OnEnter(GameObject* owner) override;
+		void OnExit(GameObject* owner) override;
 		void HandleInput(GameObject* owner) override;
+	private:
+		//float m_Timer{1.0f};
 	};
 
 	class RunningState : public PlayerState
 	{
 	public:
-		void Update() override;
-		void OnEnter() override;
-		void OnExit() override;
+		void Update(GameObject* owner) override;
+		void OnEnter(GameObject* owner) override;
+		void OnExit(GameObject* owner) override;
+		void HandleInput(GameObject* owner) override;
+	};
+
+	class FallingState : public PlayerState
+	{
+	public:
+		void Update(GameObject* owner) override;
+		void OnEnter(GameObject* owner) override;
+		void OnExit(GameObject* owner) override;
 		void HandleInput(GameObject* owner) override;
 	};
 }

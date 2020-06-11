@@ -18,7 +18,7 @@
 #include "C_InputHandling.h"
 #include "C_Collision.h"
 #include "PlayerCharacter.h"
-#include "Block.h"
+#include "LevelManager.h"
 
 using namespace std;
 using namespace std::chrono;
@@ -55,19 +55,14 @@ void dae::Game::LoadGame()
 
 	// tests
 	auto go = std::make_shared<GameObject>();
-	go->SetTexture("background.jpg");
-	scene.Add(go);
+	//go->SetTexture("background.jpg");
+	//scene.Add(go);
 
 	go = std::make_shared<PlayerCharacter>();
 	m_Player = go.get();
 	scene.Add(go);
-	go = std::make_shared<Block>();
-	m_Block = go.get();
-	scene.Add(go);
-	go = std::make_shared<Block>();
-	m_Block2 = go.get();
-	m_Block2->SetPosition(150, 150);
-	scene.Add(go);
+
+	LevelManager::GetInstance().LoadLevel("Level1.txt", &scene);
 
 	auto fps = std::make_shared<GameObject>();
 	auto frames = fps->AddComponent<dae::C_FPS>();
@@ -99,8 +94,11 @@ void dae::Game::Run()
 		auto& sceneManager = SceneManager::GetInstance();
 		auto& input = InputManager::GetInstance();
 		auto& time = TimeManager::GetInstance();
+		auto& level = LevelManager::GetInstance();
 
 		bool doContinue = true;
+		bool collide{ false };
+		bool collision{ false };
 		while (doContinue)
 		{
 			const auto currentTime = high_resolution_clock::now();
@@ -110,8 +108,32 @@ void dae::Game::Run()
 			renderer.Render();
 			time.Update();
 
-			m_Block->GetComponent<C_Collision>()->HandleCollision(m_Player);
-			m_Block2->GetComponent<C_Collision>()->HandleCollision(m_Player);
+			collide = false;
+			collision = false;
+
+			for (auto block : level.GetLevel())
+			{
+				if (collide = m_Player->GetComponent<C_Collision>()->HandleCollision(block.get()))
+				{
+					collision = collide;
+				}
+			}
+			if (!collision)
+			{
+				for (auto block : level.GetLevel())
+				{
+					if (collide = m_Player->GetComponent<C_Collision>()->CheckCollisionToFall(block.get()))
+					{
+						break;
+					}
+				}
+				if (!collide && m_Player->GetComponent<C_InputHandling>()->GetState()->m_ID == State::stateID::Running)
+				{
+					m_Player->GetComponent<C_InputHandling>()->GetState()->OnExit(m_Player);
+					m_Player->GetComponent<C_InputHandling>()->SetState(new FallingState());
+					m_Player->GetComponent<C_InputHandling>()->GetState()->OnEnter(m_Player);
+				}
+			}
 
 			auto sleepTime = duration_cast<duration<float>>(currentTime + milliseconds(MsPerFrame) - high_resolution_clock::now());
 			this_thread::sleep_for(sleepTime);

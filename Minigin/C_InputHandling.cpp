@@ -3,27 +3,32 @@
 #include "Command.h"
 #include "PlayerState.h"
 
-dae::RunningState dae::PlayerState::m_RunningState{};
-dae::JumpingState dae::PlayerState::m_JumpingState{};
+State::stateID dae::PlayerState::m_ID{State::stateID::Falling};
 
 dae::C_InputHandling::C_InputHandling(GameObject* owner)
 	: Component(owner)
 	, m_Commands{}
-	, m_pState{ &PlayerState::m_RunningState }
+	, m_spState{}
 {
+	m_spState = std::make_shared<FallingState>();
 }
 
 void dae::C_InputHandling::Update()
 {
-	m_pState->Update();
-	m_pState->HandleInput(m_spOwner);
+	m_spState->Update(m_spOwner);
+	m_spState->HandleInput(m_spOwner);
 }
 
 void dae::C_InputHandling::Render() const
 {
 }
 
-dae::PlayerState* dae::C_InputHandling::GetState() const
+std::shared_ptr<dae::PlayerState> dae::C_InputHandling::GetState()
 {
-	return m_pState;
+	return m_spState;
+}
+
+void dae::C_InputHandling::SetState(PlayerState* state)
+{
+	m_spState = std::shared_ptr<PlayerState>(state);
 }
