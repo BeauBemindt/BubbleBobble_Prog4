@@ -155,6 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Block.cpp" />
     <ClCompile Include="BubbleBobble.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="PlayerCharacter.cpp" />
@@ -165,6 +166,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Block.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="PlayerCharacter.h" />
   </ItemGroup>

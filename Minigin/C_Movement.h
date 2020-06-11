@@ -11,6 +11,10 @@ namespace dae
 		void Render() const override;
 		void Move(float multiplier);
 		void Jump();
+		void EndJumping();
+		void Fall();
+		float GetGravity() const;
+		float GetSpeed() const;
 
 	private:
 		float m_VelocityX;

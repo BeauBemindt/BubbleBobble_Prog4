@@ -27,8 +27,11 @@
     <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Block.cpp">
+      <Filter>Source Files\Prefabs</Filter>
+    </ClCompile>
     <ClCompile Include="PlayerCharacter.cpp">
-      <Filter>Header Files\Prefabs</Filter>
+      <Filter>Source Files\Prefabs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -36,6 +39,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PlayerCharacter.h">
+      <Filter>Header Files\Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="Block.h">
       <Filter>Header Files\Prefabs</Filter>
     </ClInclude>
   </ItemGroup>

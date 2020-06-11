@@ -23,7 +23,7 @@ void dae::C_InputHandling::Render() const
 {
 }
 
-dae::PlayerState* dae::C_InputHandling::GetState()
+dae::PlayerState* dae::C_InputHandling::GetState() const
 {
 	return m_pState;
 }

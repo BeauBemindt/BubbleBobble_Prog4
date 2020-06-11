@@ -3,11 +3,10 @@
 #include "C_Movement.h"
 #include "C_InputHandling.h"
 #include "C_Sprite.h"
-#include "PlayerState.h"
 
 dae::PlayerCharacter::PlayerCharacter()
 {
-	SetPosition(216, 0);
+	SetPosition(300, 0);
 
 	auto movement = AddComponent<C_Movement>();
 
