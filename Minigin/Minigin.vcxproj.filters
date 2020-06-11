@@ -117,6 +117,9 @@
     <ClInclude Include="State.h">
       <Filter>Header Files\FSM</Filter>
     </ClInclude>
+    <ClInclude Include="C_Collision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">
@@ -193,6 +196,9 @@
     </ClCompile>
     <ClCompile Include="State.cpp">
       <Filter>Source Files\FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="C_Collision.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -16,7 +16,9 @@
 #include "C_Subject.h"
 #include "C_Movement.h"
 #include "C_InputHandling.h"
+#include "C_Collision.h"
 #include "PlayerCharacter.h"
+#include "Block.h"
 
 using namespace std;
 using namespace std::chrono;
@@ -47,7 +49,7 @@ void dae::Game::Initialize()
 /**
  * Code constructing the scene world starts here
  */
-void dae::Game::LoadGame() const
+void dae::Game::LoadGame()
 {
 	auto& scene = SceneManager::GetInstance().CreateScene("TestLevel");
 
@@ -57,6 +59,14 @@ void dae::Game::LoadGame() const
 	scene.Add(go);
 
 	go = std::make_shared<PlayerCharacter>();
+	m_Player = go.get();
+	scene.Add(go);
+	go = std::make_shared<Block>();
+	m_Block = go.get();
+	scene.Add(go);
+	go = std::make_shared<Block>();
+	m_Block2 = go.get();
+	m_Block2->SetPosition(150, 150);
 	scene.Add(go);
 
 	auto fps = std::make_shared<GameObject>();
@@ -99,6 +109,9 @@ void dae::Game::Run()
 			sceneManager.Update();
 			renderer.Render();
 			time.Update();
+
+			m_Block->GetComponent<C_Collision>()->HandleCollision(m_Player);
+			m_Block2->GetComponent<C_Collision>()->HandleCollision(m_Player);
 
 			auto sleepTime = duration_cast<duration<float>>(currentTime + milliseconds(MsPerFrame) - high_resolution_clock::now());
 			this_thread::sleep_for(sleepTime);

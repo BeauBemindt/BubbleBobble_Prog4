@@ -11,7 +11,7 @@ namespace dae
 		C_InputHandling(GameObject* owner);
 		void Update() override;
 		void Render() const override;
-		PlayerState* GetState();
+		PlayerState* GetState() const;
 	
 	private:
 		std::vector<Command*> m_Commands;

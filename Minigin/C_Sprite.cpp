@@ -62,3 +62,13 @@ bool dae::C_Sprite::AnimationTimeReached()
 	}
 	return false;
 }
+
+float dae::C_Sprite::GetWidth() const
+{
+	return m_Width;
+}
+
+float dae::C_Sprite::GetHeight() const
+{
+	return m_Height;
+}
