@@ -12,7 +12,7 @@ dae::C_Movement::C_Movement(GameObject* owner)
 	, m_Gravity{300.0f}
 	, m_Speed{100.0f}
 	, m_Jumping{false}
-	, m_VelocityY{}
+	, m_VelocityY{m_Gravity}
 {
 	m_VelocityY = m_Gravity;
 }

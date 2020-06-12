@@ -19,6 +19,7 @@
 #include "C_Collision.h"
 #include "PlayerCharacter.h"
 #include "LevelManager.h"
+#include "C_Player.h"
 
 using namespace std;
 using namespace std::chrono;
@@ -58,8 +59,13 @@ void dae::Game::LoadGame()
 	//go->SetTexture("background.jpg");
 	//scene.Add(go);
 
-	go = std::make_shared<PlayerCharacter>();
+	go = std::make_shared<PlayerCharacter>(1);
 	m_Player = go.get();
+	scene.Add(go);
+
+	go = std::make_shared<PlayerCharacter>(2);
+	m_Player2 = go.get();
+	m_Player2->m_Transform.SetPosition(350.0f, 50.0f, 0.0f);
 	scene.Add(go);
 
 	LevelManager::GetInstance().LoadLevel("Level1.txt", &scene);
@@ -99,6 +105,8 @@ void dae::Game::Run()
 		bool doContinue = true;
 		bool collide{ false };
 		bool collision{ false };
+		bool collide2{ false };
+		bool collision2{ false };
 		while (doContinue)
 		{
 			const auto currentTime = high_resolution_clock::now();
@@ -132,6 +140,33 @@ void dae::Game::Run()
 					m_Player->GetComponent<C_InputHandling>()->GetState()->OnExit(m_Player);
 					m_Player->GetComponent<C_InputHandling>()->SetState(new FallingState());
 					m_Player->GetComponent<C_InputHandling>()->GetState()->OnEnter(m_Player);
+				}
+			}
+
+			collide2 = false;
+			collision2 = false;
+
+			for (auto block : level.GetLevel())
+			{
+				if (collide2 = m_Player2->GetComponent<C_Collision>()->HandleCollision(block.get()))
+				{
+					collision2 = collide2;
+				}
+			}
+			if (!collision2)
+			{
+				for (auto block : level.GetLevel())
+				{
+					if (collide2 = m_Player2->GetComponent<C_Collision>()->CheckCollisionToFall(block.get()))
+					{
+						break;
+					}
+				}
+				if (!collide2 && m_Player2->GetComponent<C_InputHandling>()->GetState()->m_ID == State::stateID::Running)
+				{
+					m_Player2->GetComponent<C_InputHandling>()->GetState()->OnExit(m_Player2);
+					m_Player2->GetComponent<C_InputHandling>()->SetState(new FallingState());
+					m_Player2->GetComponent<C_InputHandling>()->GetState()->OnEnter(m_Player2);
 				}
 			}
 

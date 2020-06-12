@@ -35,7 +35,7 @@ namespace dae
 	public:
 		bool ProcessInput();
 		bool IsPressed(ControllerButton button) const;
-		std::vector<Command*>& HandleInput(State::stateID id);
+		std::vector<Command*>& HandleInput(State::stateID id, int playerNbr);
 
 	private:
 		friend class Singleton<InputManager>;

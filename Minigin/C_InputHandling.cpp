@@ -3,14 +3,13 @@
 #include "Command.h"
 #include "PlayerState.h"
 
-State::stateID dae::PlayerState::m_ID{State::stateID::Falling};
-
 dae::C_InputHandling::C_InputHandling(GameObject* owner)
 	: Component(owner)
 	, m_Commands{}
 	, m_spState{}
 {
 	m_spState = std::make_shared<FallingState>();
+	m_spState->m_ID = State::stateID::Falling;
 }
 
 void dae::C_InputHandling::Update()

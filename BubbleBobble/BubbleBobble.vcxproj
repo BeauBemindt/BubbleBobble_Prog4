@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Block.cpp" />
+    <ClCompile Include="Bubble.cpp" />
     <ClCompile Include="BubbleBobble.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="PlayerCharacter.cpp" />
@@ -167,8 +168,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.h" />
+    <ClInclude Include="Bubble.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="PlayerCharacter.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="BubbleBobble.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

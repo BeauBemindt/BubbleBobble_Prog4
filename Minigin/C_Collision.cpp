@@ -6,6 +6,7 @@
 #include "TimeManager.h"
 #include "C_InputHandling.h"
 #include "PlayerState.h"
+#include <typeinfo>
 
 dae::C_Collision::C_Collision(GameObject* owner)
 	: Component(owner)
@@ -64,12 +65,15 @@ bool dae::C_Collision::HandleCollision(GameObject* other)
 			{
 				m_spOwner->SetPosition(m_spOwner->m_Transform.GetPosition().x,
 					m_spOwner->m_Transform.GetPosition().y - m_spOwner->GetComponent<C_Movement>()->GetGravity() * 1.2f * TimeManager::GetInstance().GetDeltaTime());
-				if (m_spOwner->GetComponent<C_InputHandling>()->GetState()->m_ID == State::stateID::Falling)
+				if (m_spOwner->GetComponent<C_InputHandling>()->GetState().get()->m_ID == State::stateID::Falling ||
+					(m_spOwner->GetComponent<C_InputHandling>()->GetState()->m_ID == State::stateID::Jumping &&
+						std::static_pointer_cast<JumpingState>(m_spOwner->GetComponent<C_InputHandling>()->GetState())->m_Timer >= 0.2f))
 				{
 					m_spOwner->GetComponent<C_InputHandling>()->GetState()->OnExit(m_spOwner);
 					m_spOwner->GetComponent<C_InputHandling>()->SetState(new RunningState());
 					m_spOwner->GetComponent<C_InputHandling>()->GetState()->OnEnter(m_spOwner);
 				}
+	
 			}
 			return true;
 	}
