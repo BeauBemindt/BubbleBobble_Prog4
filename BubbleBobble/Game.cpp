@@ -18,7 +18,11 @@
 #include "C_InputHandling.h"
 #include "C_Collision.h"
 #include "PlayerCharacter.h"
+#include "Maita.h"
 #include "LevelManager.h"
+#include "C_Player.h"
+#include "C_MaitaBehaviour.h"
+#include "C_enemyCollision.h"
 
 using namespace std;
 using namespace std::chrono;
@@ -53,23 +57,9 @@ void dae::Game::LoadGame()
 {
 	auto& scene = SceneManager::GetInstance().CreateScene("TestLevel");
 
-	// tests
-	auto go = std::make_shared<GameObject>();
-	//go->SetTexture("background.jpg");
-	//scene.Add(go);
+	LevelManager::GetInstance().SetPlayerAmount(2);
+	LevelManager::GetInstance().LoadLevel("Level2.txt", &scene);
 
-	go = std::make_shared<PlayerCharacter>();
-	m_Player = go.get();
-	scene.Add(go);
-
-	LevelManager::GetInstance().LoadLevel("Level1.txt", &scene);
-
-	auto fps = std::make_shared<GameObject>();
-	auto frames = fps->AddComponent<dae::C_FPS>();
-	auto observer = go->AddComponent<dae::O_Test>();
-	auto subject = fps->AddComponent<dae::C_Subject>();
-	subject->attach(observer);
-	scene.Add(fps);
 }
 
 void dae::Game::Cleanup()
@@ -97,8 +87,7 @@ void dae::Game::Run()
 		auto& level = LevelManager::GetInstance();
 
 		bool doContinue = true;
-		bool collide{ false };
-		bool collision{ false };
+
 		while (doContinue)
 		{
 			const auto currentTime = high_resolution_clock::now();
@@ -107,33 +96,7 @@ void dae::Game::Run()
 			sceneManager.Update();
 			renderer.Render();
 			time.Update();
-
-			collide = false;
-			collision = false;
-
-			for (auto block : level.GetLevel())
-			{
-				if (collide = m_Player->GetComponent<C_Collision>()->HandleCollision(block.get()))
-				{
-					collision = collide;
-				}
-			}
-			if (!collision)
-			{
-				for (auto block : level.GetLevel())
-				{
-					if (collide = m_Player->GetComponent<C_Collision>()->CheckCollisionToFall(block.get()))
-					{
-						break;
-					}
-				}
-				if (!collide && m_Player->GetComponent<C_InputHandling>()->GetState()->m_ID == State::stateID::Running)
-				{
-					m_Player->GetComponent<C_InputHandling>()->GetState()->OnExit(m_Player);
-					m_Player->GetComponent<C_InputHandling>()->SetState(new FallingState());
-					m_Player->GetComponent<C_InputHandling>()->GetState()->OnEnter(m_Player);
-				}
-			}
+			level.Update();
 
 			auto sleepTime = duration_cast<duration<float>>(currentTime + milliseconds(MsPerFrame) - high_resolution_clock::now());
 			this_thread::sleep_for(sleepTime);
@@ -142,3 +105,4 @@ void dae::Game::Run()
 
 	Cleanup();
 }
+

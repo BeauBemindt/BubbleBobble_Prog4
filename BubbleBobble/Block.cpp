@@ -10,4 +10,5 @@ dae::Block::Block()
 	sprite->SetTexture("Block.png");
 	sprite->SetRect(0.0f, 0.0f, 170.0f, 160.0f);
 	//sprite->Scale(0.5f);
+	sprite->Pause();
 }

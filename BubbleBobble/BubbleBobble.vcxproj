@@ -156,9 +156,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Block.cpp" />
+    <ClCompile Include="Boulder.cpp" />
+    <ClCompile Include="Bubble.cpp" />
     <ClCompile Include="BubbleBobble.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Maita.cpp" />
     <ClCompile Include="PlayerCharacter.cpp" />
+    <ClCompile Include="ZenChan.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Minigin\Minigin.vcxproj">
@@ -167,8 +171,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.h" />
+    <ClInclude Include="Boulder.h" />
+    <ClInclude Include="Bubble.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Maita.h" />
     <ClInclude Include="PlayerCharacter.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="ZenChan.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="BubbleBobble.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

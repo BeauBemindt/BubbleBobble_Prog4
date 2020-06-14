@@ -6,7 +6,7 @@ namespace dae
 	class PlayerCharacter : public GameObject
 	{
 	public:
-		PlayerCharacter();
+		PlayerCharacter(int number);
 	};
 }
 
