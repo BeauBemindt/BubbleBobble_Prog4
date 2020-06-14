@@ -23,13 +23,6 @@ bool dae::InputManager::ProcessInput()
 		if (e.type == SDL_QUIT) {
 			return false;
 		}
-		if (e.type == SDL_KEYDOWN)
-		{
-
-		}
-		if (e.type == SDL_MOUSEBUTTONDOWN) {
-			
-		}
 	}
 	return true;
 }
@@ -54,28 +47,63 @@ bool dae::InputManager::IsPressed(ControllerButton button) const
 	}
 }
 
-std::vector<dae::Command*>& dae::InputManager::HandleInput(State::stateID id)
+std::vector<dae::Command*>& dae::InputManager::HandleInput(State::stateID id, int playerNbr)
 {
 	m_Commands.clear();
-	if (IsPressed(ControllerButton::ButtonRight))
+	if (playerNbr == 1)
 	{
-		m_Commands.push_back(m_MoveRight.get());
-	}
-	else if (IsPressed(ControllerButton::ButtonLeft))
-	{
-		m_Commands.push_back(m_MoveLeft.get());
-	}
-	else
-	{
-		m_Commands.push_back(m_StandStill.get());
-	}
-	if (id == State::stateID::Running)
-	{
-		if (IsPressed(ControllerButton::ButtonA))
+		if (IsPressed(ControllerButton::ButtonRight))
 		{
-			m_Commands.push_back(m_Jump.get());
+			m_Commands.push_back(m_MoveRight.get());
+		}
+		else if (IsPressed(ControllerButton::ButtonLeft))
+		{
+			m_Commands.push_back(m_MoveLeft.get());
+		}
+		else
+		{
+			m_Commands.push_back(m_StandStill.get());
+		}
+		if (IsPressed(ControllerButton::ButtonX))
+		{
+			m_Commands.push_back(m_Fire.get());
+		}
+		if (id == State::stateID::Running)
+		{
+			if (IsPressed(ControllerButton::ButtonA))
+			{
+				m_Commands.push_back(m_Jump.get());
+			}
 		}
 	}
+	if (playerNbr == 2)
+	{
+		const Uint8* keystate = SDL_GetKeyboardState(NULL);
+		if (keystate[SDL_SCANCODE_RIGHT])
+		{
+			m_Commands.push_back(m_MoveRight.get());
+		}
+		else if (keystate[SDL_SCANCODE_LEFT])
+		{
+			m_Commands.push_back(m_MoveLeft.get());
+		}
+		else
+		{
+			m_Commands.push_back(m_StandStill.get());
+		}
+		if (keystate[SDL_SCANCODE_RSHIFT])
+		{
+			m_Commands.push_back(m_Fire.get());
+		}
+		if (id == State::stateID::Running)
+		{
+			if (keystate[SDL_SCANCODE_SPACE])
+			{
+				m_Commands.push_back(m_Jump.get());
+			}
+		}
+	}
+
 	// Nothing pressed, so do nothing.
 	return m_Commands;
 }

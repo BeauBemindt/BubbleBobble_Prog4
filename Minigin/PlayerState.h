@@ -14,7 +14,8 @@ namespace dae
 		virtual void OnExit(GameObject* owner) = 0;
 		virtual void HandleInput(GameObject* owner) = 0;
 
-		static State::stateID m_ID;
+		State::stateID m_ID{};
+		float m_Timer{};
 	protected:
 		std::vector<Command*> m_Commands;
 	};
@@ -26,8 +27,8 @@ namespace dae
 		void OnEnter(GameObject* owner) override;
 		void OnExit(GameObject* owner) override;
 		void HandleInput(GameObject* owner) override;
+
 	private:
-		//float m_Timer{1.0f};
 	};
 
 	class RunningState : public PlayerState

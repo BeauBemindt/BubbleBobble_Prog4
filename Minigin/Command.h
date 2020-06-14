@@ -5,6 +5,8 @@
 #include "C_Sprite.h"
 #include "C_InputHandling.h"
 #include "PlayerState.h"
+#include "C_Fire.h"
+#include "C_Player.h"
 
 namespace dae
 {
@@ -18,9 +20,41 @@ namespace dae
 	class FireCommand : public Command
 	{
 	public:
-		void Execute(GameObject*) override
+		void Execute(GameObject* object) override
 		{
-			std::cout << "yes" << std::endl;
+			auto sprite = object->GetComponent<C_Sprite>();
+			float y{};
+			if (sprite->GetRect().y % 32 == 0.0f)
+			{
+				if (object->GetComponent<C_Player>()->GetNumber() == 2)
+				{
+					y = 96.0f;
+				}
+				else
+				{
+					y = 32.0f;
+				}
+			}
+			else
+			{
+				if (object->GetComponent<C_Player>()->GetNumber() == 2)
+				{
+					y = 112.0f;
+				}
+				else
+				{
+					y = 48.0f;
+				}
+			}
+			sprite->SetRect(float(sprite->GetRect().x), y, float(sprite->GetRect().w), float(sprite->GetRect().h));
+			if (int(y) % 32 == 0.0f)
+			{
+				object->GetComponent<C_Fire>()->Fire(1.0f);
+			}
+			else
+			{
+				object->GetComponent<C_Fire>()->Fire(-1.0f);
+			}
 		};
 	};
 
@@ -31,14 +65,13 @@ namespace dae
 		{
 			object->GetComponent<C_Movement>()->Move(1.0f);
 			auto sprite = object->GetComponent<C_Sprite>();
-			if (sprite->AnimationTimeReached())
+			if (object->GetComponent<C_Player>()->GetNumber() == 1)
 			{
-				float x = float(sprite->GetRect().x + 34);
-				if (x > 256)
-				{
-					x = 0;
-				}
-				sprite->SetRect(x, 0.0f, float(sprite->GetRect().w), float(sprite->GetRect().h));
+				sprite->SetRect(float(sprite->GetRect().x), 0.0f, float(sprite->GetRect().w), float(sprite->GetRect().h));
+			}
+			else
+			{
+				sprite->SetRect(float(sprite->GetRect().x), 64.0f, float(sprite->GetRect().w), float(sprite->GetRect().h));
 			}
 		}
 	};
@@ -50,14 +83,13 @@ namespace dae
 		{
 			object->GetComponent<C_Movement>()->Move(-1.0f);
 			auto sprite = object->GetComponent<C_Sprite>();
-			if (sprite->AnimationTimeReached())
+			if (object->GetComponent<C_Player>()->GetNumber() == 1)
 			{
-				float x = float(sprite->GetRect().x + 34);
-				if (x > 256)
-				{
-					x = 0;
-				}
-				sprite->SetRect(x, 16.0f, float(sprite->GetRect().w), float(sprite->GetRect().h));
+				sprite->SetRect(float(sprite->GetRect().x), 16.0f, float(sprite->GetRect().w), float(sprite->GetRect().h));
+			}
+			else
+			{
+				sprite->SetRect(float(sprite->GetRect().x), 80.0f, float(sprite->GetRect().w), float(sprite->GetRect().h));
 			}
 		}
 	};
@@ -68,6 +100,7 @@ namespace dae
 		void Execute(GameObject* object) override
 		{
 			object->GetComponent<C_Movement>()->Move(0.0f);
+			object->GetComponent<C_Sprite>()->Pause();
 		}
 	};
 

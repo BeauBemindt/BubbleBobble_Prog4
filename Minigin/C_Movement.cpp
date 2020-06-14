@@ -12,7 +12,7 @@ dae::C_Movement::C_Movement(GameObject* owner)
 	, m_Gravity{300.0f}
 	, m_Speed{100.0f}
 	, m_Jumping{false}
-	, m_VelocityY{}
+	, m_VelocityY{m_Gravity}
 {
 	m_VelocityY = m_Gravity;
 }
@@ -21,6 +21,10 @@ void dae::C_Movement::Update()
 {
 	m_spOwner->SetPosition(m_spOwner->m_Transform.GetPosition().x + m_VelocityX * TimeManager::GetInstance().GetDeltaTime(),
 		m_spOwner->m_Transform.GetPosition().y + m_VelocityY * TimeManager::GetInstance().GetDeltaTime());
+	if (m_spOwner->m_Transform.GetPosition().y >= 480.0f)
+	{
+		m_spOwner->SetPosition(m_spOwner->m_Transform.GetPosition().x, 0.0f);
+	}
 }
 
 void dae::C_Movement::Render() const
@@ -45,4 +49,9 @@ float dae::C_Movement::GetGravity() const
 float dae::C_Movement::GetSpeed() const
 {
 	return m_Speed;
+}
+
+float dae::C_Movement::GetVelocityY() const
+{
+	return m_VelocityY;
 }

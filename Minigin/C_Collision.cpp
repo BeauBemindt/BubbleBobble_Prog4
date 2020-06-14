@@ -6,6 +6,11 @@
 #include "TimeManager.h"
 #include "C_InputHandling.h"
 #include "PlayerState.h"
+#include "../BubbleBobble/Maita.h"
+#include "../BubbleBobble/ZenChan.h"
+#include "C_BubbleBehaviour.h"
+#include "../BubbleBobble/Boulder.h"
+#include "C_Health.h"
 
 dae::C_Collision::C_Collision(GameObject* owner)
 	: Component(owner)
@@ -40,46 +45,56 @@ bool dae::C_Collision::HandleCollision(GameObject* other)
 
 	if (sqrt(pow(dX, 2)) <= thicknessX && sqrt(pow(dY, 2)) <= thicknessY)
 	{
-			if (dX < 0)
+		if (dynamic_cast<Maita*>(other))
+		{
+			if (other->GetComponent<C_BubbleBehaviour>()->GetIsBubbled())
 			{
-				//m_spOwner->SetPosition(m_spOwner->m_Transform.GetPosition().x -
-				//	m_spOwner->GetComponent<C_Movement>()->GetSpeed() * 1.2f * TimeManager::GetInstance().GetDeltaTime(), m_spOwner->m_Transform.GetPosition().y);
-				m_spOwner->GetComponent<C_Movement>()->Move(-2.0f);
+				other->destroy();
+				return true;
 			}
-			else if (dX > 0)
+		}
+		else if (dynamic_cast<ZenChan*>(other))
+		{
+			if (other->GetComponent<C_BubbleBehaviour>()->GetIsBubbled())
 			{
-				m_spOwner->SetPosition(m_spOwner->m_Transform.GetPosition().x +
-					m_spOwner->GetComponent<C_Movement>()->GetSpeed() * 1.2f * TimeManager::GetInstance().GetDeltaTime(), m_spOwner->m_Transform.GetPosition().y);
-				m_spOwner->GetComponent<C_Movement>()->Move(-2.0f);
+				other->destroy();
+				return true;
 			}
-			if (dY > 0)
+			else
 			{
-				m_spOwner->SetPosition(m_spOwner->m_Transform.GetPosition().x,
-					m_spOwner->m_Transform.GetPosition().y + m_spOwner->GetComponent<C_Movement>()->GetGravity() * 1.2f * TimeManager::GetInstance().GetDeltaTime());
-				m_spOwner->GetComponent<C_InputHandling>()->GetState()->OnExit(m_spOwner);
-				m_spOwner->GetComponent<C_InputHandling>()->SetState(new FallingState());
-				m_spOwner->GetComponent<C_InputHandling>()->GetState()->OnEnter(m_spOwner);
+				m_spOwner->GetComponent<C_Health>()->Damage();
 			}
-			else if (dY < 0)
-			{
-				m_spOwner->SetPosition(m_spOwner->m_Transform.GetPosition().x,
-					m_spOwner->m_Transform.GetPosition().y - m_spOwner->GetComponent<C_Movement>()->GetGravity() * 1.2f * TimeManager::GetInstance().GetDeltaTime());
-				if (m_spOwner->GetComponent<C_InputHandling>()->GetState()->m_ID == State::stateID::Falling)
+		}
+		else if(dY < thicknessY)
+		{
+				if (dX < 0.0f)
 				{
-					m_spOwner->GetComponent<C_InputHandling>()->GetState()->OnExit(m_spOwner);
-					m_spOwner->GetComponent<C_InputHandling>()->SetState(new RunningState());
-					m_spOwner->GetComponent<C_InputHandling>()->GetState()->OnEnter(m_spOwner);
+					m_spOwner->SetPosition(m_spOwner->m_Transform.GetPosition().x -
+						m_spOwner->GetComponent<C_Movement>()->GetSpeed() * 1.0f * TimeManager::GetInstance().GetDeltaTime(),
+						m_spOwner->m_Transform.GetPosition().y);
 				}
-			}
+				else if (dX > 0.0f)
+				{
+					m_spOwner->SetPosition(m_spOwner->m_Transform.GetPosition().x +
+						m_spOwner->GetComponent<C_Movement>()->GetSpeed() * 1.0f * TimeManager::GetInstance().GetDeltaTime(),
+						m_spOwner->m_Transform.GetPosition().y);
+
+				}
+				if (dY < 0)
+				{
+					if (m_spOwner->GetComponent<C_InputHandling>()->GetState().get()->m_ID == State::stateID::Falling ||
+						(m_spOwner->GetComponent<C_InputHandling>()->GetState()->m_ID == State::stateID::Jumping &&
+							std::static_pointer_cast<JumpingState>(m_spOwner->GetComponent<C_InputHandling>()->GetState())->m_Timer >= 0.5f))
+					{
+						m_spOwner->SetPosition(m_spOwner->m_Transform.GetPosition().x, otherPosY - height - 2.0f);
+						m_spOwner->GetComponent<C_InputHandling>()->GetState()->OnExit(m_spOwner);
+						m_spOwner->GetComponent<C_InputHandling>()->SetState(new RunningState());
+						m_spOwner->GetComponent<C_InputHandling>()->GetState()->OnEnter(m_spOwner);
+					}
+				}
 			return true;
+		}
 	}
-	//else if (!(sqrt(pow(dX, 2)) <= thicknessX && sqrt(pow(dY, 2)) <= thicknessY * 1.5)
-	//	&& m_spOwner->GetComponent<C_InputHandling>()->GetState()->m_ID == State::stateID::Running)
-	//{
-	//	m_spOwner->GetComponent<C_InputHandling>()->GetState()->OnExit(m_spOwner);
-	//	m_spOwner->GetComponent<C_InputHandling>()->SetState(new FallingState());
-	//	m_spOwner->GetComponent<C_InputHandling>()->GetState()->OnEnter(m_spOwner);
-	//}
 	return false;
 }
 
@@ -109,4 +124,30 @@ bool dae::C_Collision::CheckCollisionToFall(GameObject* other)
 	{
 		return false;
 	}
+}
+
+bool dae::C_Collision::HitBoulder(dae::Boulder* boulder)
+{
+	float width{ m_spOwner->GetComponent<C_Sprite>()->GetWidth() };
+	float height{ m_spOwner->GetComponent<C_Sprite>()->GetHeight() };
+	float posX{ m_spOwner->m_Transform.GetPosition().x };
+	float posY{ m_spOwner->m_Transform.GetPosition().y };
+
+	float otherWidth{ boulder->GetComponent<C_Sprite>()->GetWidth() };
+	float otherHeight{ boulder->GetComponent<C_Sprite>()->GetHeight() };
+	float otherPosX{ boulder->m_Transform.GetPosition().x };
+	float otherPosY{ boulder->m_Transform.GetPosition().y };
+
+	float dX = (posX + width / 2) - (otherPosX + otherWidth / 2);
+	float dY = (posY + height / 2) - (otherPosY + otherHeight / 2);
+
+	float thicknessX = width / 2 + otherWidth / 2;
+	float thicknessY = height / 2 + otherHeight / 2;
+
+	if (sqrt(pow(dX, 2)) <= thicknessX && sqrt(pow(dY, 2)) <= thicknessY)
+	{
+		m_spOwner->GetComponent<C_Health>()->Damage();
+		return true;
+	}
+	return false;
 }

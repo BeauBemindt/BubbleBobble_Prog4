@@ -7,24 +7,32 @@
 #include "Renderer.h"
 #include "Texture2D.h"
 #include "Font.h"
+//#include <thread>
+#include <future>
 
 void dae::ResourceManager::Init(const std::string& dataPath)
 {
 	m_DataPath = dataPath;
 
 	// load support for png and jpg, this takes a while!
+	std::future<int> png = std::async(&IMG_Init, IMG_INIT_PNG);
+	std::future<int> jpg = std::async(&IMG_Init, IMG_INIT_JPG);
+	std::future<int> ttf = std::async(&TTF_Init);
+	int i1 = png.get();
+	int i2 = jpg.get();
+	int i3 = ttf.get();
 
-	if ((IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) != IMG_INIT_PNG) 
+	if ((i1 & IMG_INIT_PNG) != IMG_INIT_PNG) 
 	{
 		throw std::runtime_error(std::string("Failed to load support for png's: ") + SDL_GetError());
 	}
 
-	if ((IMG_Init(IMG_INIT_JPG) & IMG_INIT_JPG) != IMG_INIT_JPG) 
+	if ((i2 & IMG_INIT_JPG) != IMG_INIT_JPG) 
 	{
 		throw std::runtime_error(std::string("Failed to load support for jpg's: ") + SDL_GetError());
 	}
 
-	if (TTF_Init() != 0) 
+	if (i3 != 0) 
 	{
 		throw std::runtime_error(std::string("Failed to load support for fonts: ") + SDL_GetError());
 	}

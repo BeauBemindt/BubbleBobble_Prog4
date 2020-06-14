@@ -13,6 +13,7 @@ namespace dae
 		void Fall(float multiplier);
 		float GetGravity() const;
 		float GetSpeed() const;
+		float GetVelocityY() const;
 
 	private:
 		float m_VelocityX;
