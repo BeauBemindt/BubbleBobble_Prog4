@@ -7,14 +7,8 @@ namespace dae
     enum class EVENT
     {
         // Player Events
-        a,
-        b,
-        c,
-
-        // Enemy Events
-        d,
-        e,
-        f
+        damaged,
+        collected
     };
 
     class C_Observer;

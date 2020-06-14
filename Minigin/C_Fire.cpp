@@ -19,6 +19,7 @@ dae::C_Fire::C_Fire(GameObject* owner)
 
 void dae::C_Fire::Update()
 {
+	// check wether done firing and can go back to normal sprites
 	if (m_Timing)
 	{
 		m_Timer -= TimeManager::GetInstance().GetDeltaTime();
@@ -42,10 +43,13 @@ void dae::C_Fire::Render() const
 
 void dae::C_Fire::Fire(float dir)
 {
+	// timer to hold from constant fire
 	if (m_Timer == 0.0f)
 	{
+		// check if player or enemy -> bubble or boulder
 		if (dynamic_cast<PlayerCharacter*>(m_spOwner))
 		{
+			// check direction tof ire
 			if (dir <= 0.0f)
 			{
 				auto go = std::make_shared<Bubble>(m_spOwner->m_Transform.GetPosition().x - m_spOwner->GetComponent<C_Sprite>()->GetWidth()
@@ -63,6 +67,7 @@ void dae::C_Fire::Fire(float dir)
 		}
 		else
 		{
+			// check direction to fire
 			if (dir <= 0.0f)
 			{
 				auto go = std::make_shared<Boulder>(m_spOwner->m_Transform.GetPosition().x - m_spOwner->GetComponent<C_Sprite>()->GetWidth()
@@ -73,11 +78,11 @@ void dae::C_Fire::Fire(float dir)
 			}
 			else
 			{
-				auto go = std::make_shared<Boulder>(m_spOwner->m_Transform.GetPosition().x + m_spOwner->GetComponent<C_Sprite>()->GetWidth()
+				auto go = std::make_shared<Boulder>(m_spOwner->m_Transform.GetPosition().x + m_spOwner->GetComponent<C_Sprite>()->GetWidth() // cannot figure out why this warning
 					, m_spOwner->m_Transform.GetPosition().y, m_spOwner, 2.0f);
 				SceneManager::GetInstance().GetCurrentScene().Add(go);
 			}
-			m_Timer = 0.75f;
+			m_Timer = 1.0f;
 			m_Timing = true;
 		}
 	}

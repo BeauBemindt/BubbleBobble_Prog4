@@ -20,7 +20,7 @@ void dae::C_BubbleBehaviour::Update()
 	if (m_Bubbled)
 	{
 		m_BubbleTimer += TimeManager::GetInstance().GetDeltaTime();
-		if (m_BubbleTimer >= 2.0f)
+		if (m_BubbleTimer >= 2.0f) // pop out if player not hit
 		{
 			IsBubbled(false);
 			m_BubbleTimer = 0.0f;

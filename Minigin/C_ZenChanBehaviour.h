@@ -13,6 +13,7 @@ namespace dae
 		void IsJumping(bool jumping);
 		bool GetJumping() const;
 		float GetJumpingTimer() const;
+		void RemoveTarget();
 	private:
 		void PlayerInArea();
 

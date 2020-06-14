@@ -14,8 +14,8 @@ dae::C_InputHandling::C_InputHandling(GameObject* owner)
 
 void dae::C_InputHandling::Update()
 {
-	m_spState->HandleInput(m_spOwner);
 	m_spState->Update(m_spOwner);
+	m_spState->HandleInput(m_spOwner);
 }
 
 void dae::C_InputHandling::Render() const

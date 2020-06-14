@@ -18,11 +18,11 @@ dae::C_Boulder::C_Boulder(GameObject* owner)
 void dae::C_Boulder::Update()
 {
 	m_Timer += TimeManager::GetInstance().GetDeltaTime();
-	if (m_Timer >= 1.0f)
+	if (m_Timer >= 1.0f) // destroy if nothing hit
 	{
 		m_spOwner->destroy();
 	}
-	else
+	else // check if a player is hit
 	{
 		for (auto player : LevelManager::GetInstance().GetPlayers())
 		{

@@ -198,6 +198,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="C_Boulder.h" />
     <ClInclude Include="C_Bubble.h" />
     <ClInclude Include="C_BubbleBehaviour.h" />
+    <ClInclude Include="C_Collectable.h" />
     <ClInclude Include="C_Collision.h" />
     <ClInclude Include="C_Fire.h" />
     <ClInclude Include="C_FPS.h" />
@@ -208,8 +209,12 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="C_Observer.h" />
     <ClInclude Include="C_Player.h" />
     <ClInclude Include="C_EnemyCollision.h" />
+    <ClInclude Include="C_Score.h" />
+    <ClInclude Include="C_StartScreen.h" />
     <ClInclude Include="C_ZenChanBehaviour.h" />
     <ClInclude Include="LevelManager.h" />
+    <ClInclude Include="O_HealthBar.h" />
+    <ClInclude Include="O_Score.h" />
     <ClInclude Include="PlayerState.h" />
     <ClInclude Include="C_Sprite.h" />
     <ClInclude Include="O_Test.h" />
@@ -237,6 +242,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClCompile Include="C_Boulder.cpp" />
     <ClCompile Include="C_Bubble.cpp" />
     <ClCompile Include="C_BubbleBehaviour.cpp" />
+    <ClCompile Include="C_Collectable.cpp" />
     <ClCompile Include="C_Collision.cpp" />
     <ClCompile Include="C_Fire.cpp" />
     <ClCompile Include="C_FPS.cpp" />
@@ -246,8 +252,12 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClCompile Include="C_Movement.cpp" />
     <ClCompile Include="C_Player.cpp" />
     <ClCompile Include="C_EnemyCollision.cpp" />
+    <ClCompile Include="C_Score.cpp" />
+    <ClCompile Include="C_StartScreen.cpp" />
     <ClCompile Include="C_ZenChanBehaviour.cpp" />
     <ClCompile Include="LevelManager.cpp" />
+    <ClCompile Include="O_HealthBar.cpp" />
+    <ClCompile Include="O_Score.cpp" />
     <ClCompile Include="PlayerState.cpp" />
     <ClCompile Include="C_Sprite.cpp" />
     <ClCompile Include="InputManager.cpp" />

@@ -3,6 +3,7 @@
 
 namespace dae
 {
+	class Collectable;
 	class Boulder;
 	class C_Collision : public Component
 	{
@@ -13,6 +14,7 @@ namespace dae
 		bool HandleCollision(GameObject* other);
 		bool CheckCollisionToFall(GameObject* other);
 		bool HitBoulder(Boulder* bubble);
+		bool HitCollectable(Collectable* collectable);
 	private:
 	};
 }

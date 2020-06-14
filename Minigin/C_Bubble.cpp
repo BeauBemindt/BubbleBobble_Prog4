@@ -18,20 +18,28 @@ dae::C_Bubble::C_Bubble(GameObject* owner)
 
 void dae::C_Bubble::Update()
 {
+	// check if maita hit
 	for (auto maita : LevelManager::GetInstance().GetMaita())
 	{
-		if (maita->GetComponent<C_EnemyCollision>()->HitBubble(dynamic_cast<Bubble*>(m_spOwner)))
+		if (m_spOwner->GetComponent<C_Movement>())
 		{
-			m_spOwner->destroy();
-			break;
+			if (maita->GetComponent<C_EnemyCollision>()->HitBubble(dynamic_cast<Bubble*>(m_spOwner)))
+			{
+				m_spOwner->destroy();
+				return;
+			}
 		}
 	}
+	// check if zenchan hit
 	for (auto zenchan : LevelManager::GetInstance().GetZenChan())
 	{
-		if (zenchan->GetComponent<C_EnemyCollision>()->HitBubble(dynamic_cast<Bubble*>(m_spOwner)))
+		if (m_spOwner->GetComponent<C_Movement>())
 		{
-			m_spOwner->destroy();
-			break;
+			if (zenchan->GetComponent<C_EnemyCollision>()->HitBubble(dynamic_cast<Bubble*>(m_spOwner)))
+			{
+				m_spOwner->destroy();
+				return;
+			}
 		}
 	}
 	m_Timer += TimeManager::GetInstance().GetDeltaTime();

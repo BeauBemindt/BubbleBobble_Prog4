@@ -1,15 +1,15 @@
 #include "MiniginPCH.h"
-#include "C_EnemyCollision.h"
 #include "GameObject.h"
-#include "C_Sprite.h"
-#include "C_Movement.h"
 #include "TimeManager.h"
-#include "C_InputHandling.h"
 #include "PlayerState.h"
 #include "../BubbleBobble/Bubble.h"
 #include "C_BubbleBehaviour.h"
 #include "C_MaitaBehaviour.h"
 #include "C_ZenChanBehaviour.h"
+#include "C_InputHandling.h"
+#include "C_Sprite.h"
+#include "C_Movement.h"
+#include "C_EnemyCollision.h"
 
 dae::C_EnemyCollision::C_EnemyCollision(GameObject* owner)
 	: Component(owner)
@@ -26,8 +26,9 @@ void dae::C_EnemyCollision::Render() const
 
 bool dae::C_EnemyCollision::HandleCollision(GameObject* other)
 {
-	if (!m_spOwner->GetComponent<C_BubbleBehaviour>()->GetIsBubbled())
+	if (!m_spOwner->GetComponent<C_BubbleBehaviour>()->GetIsBubbled()) // if not inside bubble
 	{
+		// get collision boxes
 		float width{ m_spOwner->GetComponent<C_Sprite>()->GetWidth() };
 		float height{ m_spOwner->GetComponent<C_Sprite>()->GetHeight() };
 		float posX{ m_spOwner->m_Transform.GetPosition().x };
@@ -44,10 +45,13 @@ bool dae::C_EnemyCollision::HandleCollision(GameObject* other)
 		float thicknessX = width / 2 + otherWidth / 2;
 		float thicknessY = height / 2 + otherHeight / 2;
 
+		// collides
 		if (sqrt(pow(dX, 2)) <= thicknessX && sqrt(pow(dY, 2)) <= thicknessY)
 		{
+			// collision from bottom side removed
 			if (dY < thicknessY)
 			{
+				// from left
 				if (dX < 0.0f)
 				{
 					if (m_spOwner->GetComponent<C_MaitaBehaviour>())
@@ -67,6 +71,7 @@ bool dae::C_EnemyCollision::HandleCollision(GameObject* other)
 
 					m_spOwner->GetComponent<C_Movement>()->Move(-0.25f);
 				}
+				// from right
 				else if (dX > 0.0f)
 				{
 					m_spOwner->SetPosition(m_spOwner->m_Transform.GetPosition().x +
@@ -85,6 +90,7 @@ bool dae::C_EnemyCollision::HandleCollision(GameObject* other)
 							, float(m_spOwner->GetComponent<C_Sprite>()->GetRect().w), float(m_spOwner->GetComponent<C_Sprite>()->GetRect().h));
 					}
 				}
+				// from top
 				if (dY < 0)
 				{
 					if (m_spOwner->GetComponent<C_MaitaBehaviour>())
@@ -129,8 +135,9 @@ bool dae::C_EnemyCollision::HandleCollision(GameObject* other)
 	return false;
 }
 
-bool dae::C_EnemyCollision::CheckCollisionToFall(GameObject* other)
+bool dae::C_EnemyCollision::CheckCollisionToFall(GameObject* other) //  used to check wether there are blocks underneath that keep from falling
 {
+	// check wether jumping -> doesnt need to fall then
 	bool jumping{};
 	if (m_spOwner->GetComponent<C_MaitaBehaviour>())
 	{
@@ -140,6 +147,7 @@ bool dae::C_EnemyCollision::CheckCollisionToFall(GameObject* other)
 	{
 		jumping = m_spOwner->GetComponent<C_ZenChanBehaviour>()->GetJumping();
 	}
+	// if not bubbled and not jumping
 	if (!m_spOwner->GetComponent<C_BubbleBehaviour>()->GetIsBubbled() && !jumping)
 	{
 		float width{ m_spOwner->GetComponent<C_Sprite>()->GetWidth() };
@@ -169,8 +177,10 @@ bool dae::C_EnemyCollision::CheckCollisionToFall(GameObject* other)
 
 bool dae::C_EnemyCollision::HitBubble(dae::Bubble* bubble)
 {
+	// bubble doesnt hit when already bubbled
 	if (!m_spOwner->GetComponent<C_BubbleBehaviour>()->GetIsBubbled())
 	{
+		// get collision boxes
 		float width{ m_spOwner->GetComponent<C_Sprite>()->GetWidth() };
 		float height{ m_spOwner->GetComponent<C_Sprite>()->GetHeight() };
 		float posX{ m_spOwner->m_Transform.GetPosition().x };
@@ -187,6 +197,7 @@ bool dae::C_EnemyCollision::HitBubble(dae::Bubble* bubble)
 		float thicknessX = width / 2 + otherWidth / 2;
 		float thicknessY = height / 2 + otherHeight / 2;
 
+		// collides
 		if (sqrt(pow(dX, 2)) <= thicknessX && sqrt(pow(dY, 2)) <= thicknessY)
 		{
 			auto sprite = m_spOwner->GetComponent<C_Sprite>();

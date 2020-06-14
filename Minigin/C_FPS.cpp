@@ -38,7 +38,7 @@ void dae::C_FPS::Update()
 
 	if (InputManager::GetInstance().IsPressed(dae::ControllerButton::ButtonA))
 	{
-		m_spOwner->GetComponent<C_Subject>()->notify(EVENT::a);
+		m_spOwner->GetComponent<C_Subject>()->notify(EVENT::damaged);
 	}
 	//HandleInput();
 }

@@ -7,6 +7,8 @@
 #include "PlayerState.h"
 #include "C_Fire.h"
 #include "C_Player.h"
+#include "LevelManager.h"
+#include "SceneManager.h"
 
 namespace dae
 {
@@ -73,6 +75,24 @@ namespace dae
 			{
 				sprite->SetRect(float(sprite->GetRect().x), 64.0f, float(sprite->GetRect().w), float(sprite->GetRect().h));
 			}
+		}
+	};
+
+	class StartSingleCommand : public Command
+	{
+	public:
+		void Execute(GameObject*) override
+		{
+			LevelManager::GetInstance().StartGame(1);
+		}
+	};
+
+	class StartCoOpCommand : public Command
+	{
+	public:
+		void Execute(GameObject*) override
+		{
+			LevelManager::GetInstance().StartGame(2);
 		}
 	};
 

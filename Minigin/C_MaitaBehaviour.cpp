@@ -20,12 +20,16 @@ dae::C_MaitaBehaviour::C_MaitaBehaviour(GameObject* owner)
 
 void dae::C_MaitaBehaviour::Update()
 {
+	// check if there is a target nearby
 	PlayerInArea();
 
+	// if not in bubble
 	if (!m_spOwner->GetComponent<C_BubbleBehaviour>()->GetIsBubbled())
 	{
+		// if target was found
 		if (m_pTarget)
 		{
+			// check if close enough to attack
 			float width{ m_spOwner->GetComponent<C_Sprite>()->GetWidth() };
 			float height{ m_spOwner->GetComponent<C_Sprite>()->GetHeight() };
 			float posX{ m_spOwner->m_Transform.GetPosition().x };
@@ -41,6 +45,7 @@ void dae::C_MaitaBehaviour::Update()
 			float thicknessX = width / 2 + otherWidth / 2 + 100.0f;
 			float thicknessY = height / 2 + otherHeight / 2 + 16.0f;
 
+			//attack possible
 			m_Firing = false;
 			if (sqrt(pow(dX, 2)) <= thicknessX && sqrt(pow(dY, 2)) <= thicknessY && dY > -10.0f)
 			{
@@ -63,6 +68,7 @@ void dae::C_MaitaBehaviour::Update()
 		}
 		else
 		{
+			// jumps in random interval and otherwise is wandering around if no target found
 			m_TimerToJump -= TimeManager::GetInstance().GetDeltaTime();
 			m_WanderingTimer += TimeManager::GetInstance().GetDeltaTime();
 			if (m_WanderingTimer >= 5.0f)
@@ -125,8 +131,10 @@ float dae::C_MaitaBehaviour::GetJumpingTimer() const
 
 void dae::C_MaitaBehaviour::PlayerInArea()
 {
+	// if not in bubble
 	if (!m_spOwner->GetComponent<C_BubbleBehaviour>()->GetIsBubbled())
 	{
+		// search area for players
 		PlayerCharacter* target{};
 		float width{ m_spOwner->GetComponent<C_Sprite>()->GetWidth() };
 		float height{ m_spOwner->GetComponent<C_Sprite>()->GetHeight() };
@@ -163,6 +171,7 @@ void dae::C_MaitaBehaviour::PlayerInArea()
 			}
 		}
 		m_pTarget = target;
+		// target found
 		if (m_pTarget)
 		{
 			auto sprite = m_spOwner->GetComponent<C_Sprite>();
