@@ -23,7 +23,7 @@ void dae::C_Sprite::Update()
 	m_PosX = m_spOwner->m_Transform.GetPosition().x;
 	m_PosY = m_spOwner->m_Transform.GetPosition().y;
 
-	if (!m_Pause)
+	if (!m_Pause) // if not paused, update animation
 	{
 		m_AnimationTimer += TimeManager::GetInstance().GetDeltaTime();
 

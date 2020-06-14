@@ -19,11 +19,18 @@ dae::C_Movement::C_Movement(GameObject* owner)
 
 void dae::C_Movement::Update()
 {
+	// update position according to velocity
 	m_spOwner->SetPosition(m_spOwner->m_Transform.GetPosition().x + m_VelocityX * TimeManager::GetInstance().GetDeltaTime(),
 		m_spOwner->m_Transform.GetPosition().y + m_VelocityY * TimeManager::GetInstance().GetDeltaTime());
-	if (m_spOwner->m_Transform.GetPosition().y >= 480.0f)
+
+	// reappear when going through top or bottom side of map
+	if (m_spOwner->m_Transform.GetPosition().y >= 580.0f)
 	{
-		m_spOwner->SetPosition(m_spOwner->m_Transform.GetPosition().x, 0.0f);
+		m_spOwner->SetPosition(m_spOwner->m_Transform.GetPosition().x, 101.0f);
+	}
+	else if (m_spOwner->m_Transform.GetPosition().y <= 100.0f)
+	{
+		m_spOwner->SetPosition(m_spOwner->m_Transform.GetPosition().x, 579.0f);
 	}
 }
 

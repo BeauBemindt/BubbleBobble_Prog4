@@ -4,10 +4,11 @@
 #include "LevelManager.h"
 #include "C_Player.h"
 #include "TimeManager.h"
+#include "C_Subject.h"
 
 dae::C_Health::C_Health(GameObject* owner)
 	: Component(owner)
-	, m_Health{3}
+	, m_Health{4}
 	, m_DamageInterval{}
 {
 }
@@ -23,11 +24,14 @@ void dae::C_Health::Render() const
 
 void dae::C_Health::Damage()
 {
-	if (m_DamageInterval >= 1.0f)
+	// keeps from taking constant damage
+	if (m_DamageInterval >= 0.5f)
 	{
 		--m_Health;
-		std::cout << m_Health << std::endl;
 		m_DamageInterval = 0.0f;
+		
+		// norify healthbar
+		m_spOwner->GetComponent<C_Subject>()->notify(EVENT::damaged);
 	}
 }
 

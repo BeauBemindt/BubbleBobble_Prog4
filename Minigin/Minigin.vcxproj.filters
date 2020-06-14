@@ -150,6 +150,21 @@
     <ClInclude Include="C_ZenChanBehaviour.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="C_Collectable.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="O_HealthBar.h">
+      <Filter>Header Files\Components\Observsers</Filter>
+    </ClInclude>
+    <ClInclude Include="O_Score.h">
+      <Filter>Header Files\Components\Observsers</Filter>
+    </ClInclude>
+    <ClInclude Include="C_Score.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="C_StartScreen.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">
@@ -258,6 +273,21 @@
       <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="C_ZenChanBehaviour.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="C_Collectable.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="O_HealthBar.cpp">
+      <Filter>Source Files\Components\Observers</Filter>
+    </ClCompile>
+    <ClCompile Include="O_Score.cpp">
+      <Filter>Source Files\Components\Observers</Filter>
+    </ClCompile>
+    <ClCompile Include="C_Score.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="C_StartScreen.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>

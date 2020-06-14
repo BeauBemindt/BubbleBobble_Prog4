@@ -30,6 +30,8 @@ namespace dae
 	class MoveLeftCommand;
 	class JumpCommand;
 	class StandStillCommand;
+	class StartSingleCommand;
+	class StartCoOpCommand;
 	class InputManager final : public Singleton<InputManager>
 	{
 	public:
@@ -48,6 +50,8 @@ namespace dae
 		std::unique_ptr<MoveLeftCommand> m_MoveLeft;
 		std::unique_ptr<JumpCommand> m_Jump;
 		std::unique_ptr<StandStillCommand> m_StandStill;
+		std::unique_ptr<StartSingleCommand> m_StartSingle;
+		std::unique_ptr<StartCoOpCommand> m_StartCoOp;
 	};
 
 }

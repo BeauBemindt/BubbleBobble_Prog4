@@ -9,6 +9,8 @@ dae::InputManager::InputManager()
 	, m_MoveLeft{ std::make_unique<MoveLeftCommand>() }
 	, m_MoveRight{ std::make_unique<MoveRightCommand>() }
 	, m_StandStill{ std::make_unique<StandStillCommand>() }
+	, m_StartSingle{std::make_unique<StartSingleCommand>()}
+	, m_StartCoOp{ std::make_unique<StartCoOpCommand>() }
 {
 
 }
@@ -50,6 +52,7 @@ bool dae::InputManager::IsPressed(ControllerButton button) const
 std::vector<dae::Command*>& dae::InputManager::HandleInput(State::stateID id, int playerNbr)
 {
 	m_Commands.clear();
+	// player 1
 	if (playerNbr == 1)
 	{
 		if (IsPressed(ControllerButton::ButtonRight))
@@ -75,7 +78,20 @@ std::vector<dae::Command*>& dae::InputManager::HandleInput(State::stateID id, in
 				m_Commands.push_back(m_Jump.get());
 			}
 		}
+		if (!LevelManager::GetInstance().IsInGame())
+		{
+			if (IsPressed(ControllerButton::ButtonY))
+			{
+				m_Commands.push_back(m_StartSingle.get());
+			}
+			else if (IsPressed(ControllerButton::ButtonB))
+			{
+				m_Commands.push_back(m_StartCoOp.get());
+			}
+		}
 	}
+
+	// player 2
 	if (playerNbr == 2)
 	{
 		const Uint8* keystate = SDL_GetKeyboardState(NULL);
@@ -104,6 +120,5 @@ std::vector<dae::Command*>& dae::InputManager::HandleInput(State::stateID id, in
 		}
 	}
 
-	// Nothing pressed, so do nothing.
 	return m_Commands;
 }

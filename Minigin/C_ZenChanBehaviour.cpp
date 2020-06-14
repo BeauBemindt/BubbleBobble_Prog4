@@ -6,6 +6,7 @@
 #include "LevelManager.h"
 #include "C_Fire.h"
 #include "C_BubbleBehaviour.h"
+#include "C_Health.h"
 
 dae::C_ZenChanBehaviour::C_ZenChanBehaviour(GameObject* owner)
 	: Component(owner)
@@ -21,12 +22,16 @@ dae::C_ZenChanBehaviour::C_ZenChanBehaviour(GameObject* owner)
 
 void dae::C_ZenChanBehaviour::Update()
 {
+	// looks for target
 	PlayerInArea();
 
+	// if not in bubble
 	if (!m_spOwner->GetComponent<C_BubbleBehaviour>()->GetIsBubbled())
 	{
+		// if target found
 		if (m_pTarget)
 		{
+			// chech if target is close enoug to attack
 			float width{ m_spOwner->GetComponent<C_Sprite>()->GetWidth() };
 			float height{ m_spOwner->GetComponent<C_Sprite>()->GetHeight() };
 			float posX{ m_spOwner->m_Transform.GetPosition().x };
@@ -49,6 +54,7 @@ void dae::C_ZenChanBehaviour::Update()
 				m_Charging = true;
 			}
 		}
+		// charge to attack
 		if (m_Charging)
 		{
 			m_ChargingTimer += TimeManager::GetInstance().GetDeltaTime();
@@ -70,7 +76,7 @@ void dae::C_ZenChanBehaviour::Update()
 				}
 			}
 		}
-		else
+		else // jump on random interval or wanders around
 		{
 			m_TimerToJump -= TimeManager::GetInstance().GetDeltaTime();
 			m_WanderingTimer += TimeManager::GetInstance().GetDeltaTime();
@@ -132,10 +138,17 @@ float dae::C_ZenChanBehaviour::GetJumpingTimer() const
 	return m_JumpingTimer;
 }
 
+void dae::C_ZenChanBehaviour::RemoveTarget()
+{
+	m_pTarget = nullptr;
+}
+
 void dae::C_ZenChanBehaviour::PlayerInArea()
 {
-	if (!m_spOwner->GetComponent<C_BubbleBehaviour>()->GetIsBubbled())
+	// if not in bubble
+	if (!m_spOwner->GetComponent<C_BubbleBehaviour>()->GetIsBubbled() && !m_Charging)
 	{
+		// check if player in area
 		PlayerCharacter* target{};
 		float width{ m_spOwner->GetComponent<C_Sprite>()->GetWidth() };
 		float height{ m_spOwner->GetComponent<C_Sprite>()->GetHeight() };
@@ -172,6 +185,7 @@ void dae::C_ZenChanBehaviour::PlayerInArea()
 			}
 		}
 		m_pTarget = target;
+		// target found
 		if (m_pTarget)
 		{
 			auto sprite = m_spOwner->GetComponent<C_Sprite>();

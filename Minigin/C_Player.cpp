@@ -24,6 +24,7 @@ const int dae::C_Player::GetNumber() const
 
 void dae::C_Player::SetPlayer(int number)
 {
+	// holds what number this player is
 	m_PlayerNbr = number;
 	if (number == 2)
 	{
