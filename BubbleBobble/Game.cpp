@@ -11,15 +11,15 @@
 #include "TextObject.h"
 #include "GameObject.h"
 #include "Scene.h"
+#include "PlayerCharacter.h"
+#include "Maita.h"
+#include "LevelManager.h"
 #include "C_FPS.h"
 #include "O_Test.h"
 #include "C_Subject.h"
 #include "C_Movement.h"
 #include "C_InputHandling.h"
 #include "C_Collision.h"
-#include "PlayerCharacter.h"
-#include "Maita.h"
-#include "LevelManager.h"
 #include "C_Player.h"
 #include "C_MaitaBehaviour.h"
 #include "C_enemyCollision.h"
@@ -39,7 +39,7 @@ void dae::Game::Initialize()
 		SDL_WINDOWPOS_UNDEFINED,
 		SDL_WINDOWPOS_UNDEFINED,
 		640,
-		480,
+		580,
 		SDL_WINDOW_OPENGL
 	);
 	if (m_Window == nullptr)
@@ -55,10 +55,9 @@ void dae::Game::Initialize()
  */
 void dae::Game::LoadGame()
 {
-	auto& scene = SceneManager::GetInstance().CreateScene("TestLevel");
+	SceneManager::GetInstance().CreateScene("TestLevel");
 
-	LevelManager::GetInstance().SetPlayerAmount(2);
-	LevelManager::GetInstance().LoadLevel("Level2.txt", &scene);
+	LevelManager::GetInstance().LoadStartingMenu();
 
 }
 

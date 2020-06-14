@@ -8,8 +8,6 @@
 
 dae::ZenChan::ZenChan()
 {
-	SetPosition(150, 50);
-
 	auto movement = AddComponent<C_Movement>();
 
 	auto sprite = AddComponent<C_Sprite>();

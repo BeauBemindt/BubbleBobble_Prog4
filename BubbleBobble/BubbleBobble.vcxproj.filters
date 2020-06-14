@@ -45,6 +45,9 @@
     <ClCompile Include="ZenChan.cpp">
       <Filter>Source Files\Prefabs</Filter>
     </ClCompile>
+    <ClCompile Include="Collectable.cpp">
+      <Filter>Source Files\Prefabs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -69,6 +72,9 @@
       <Filter>Header Files\Prefabs</Filter>
     </ClInclude>
     <ClInclude Include="ZenChan.h">
+      <Filter>Header Files\Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="Collectable.h">
       <Filter>Header Files\Prefabs</Filter>
     </ClInclude>
   </ItemGroup>

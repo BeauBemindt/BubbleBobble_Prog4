@@ -7,11 +7,13 @@
 #include "C_Fire.h"
 #include "C_Player.h"
 #include "C_Health.h"
+#include "C_Subject.h"
+#include "C_Score.h"
+#include "O_HealthBar.h"
+#include "O_Score.h"
 
 dae::PlayerCharacter::PlayerCharacter(int number)
 {
-	SetPosition(300, 50);
-
 	auto movement = AddComponent<C_Movement>();
 
 	auto inputHandler = AddComponent<C_InputHandling>();
@@ -29,4 +31,12 @@ dae::PlayerCharacter::PlayerCharacter(int number)
 	player->SetPlayer(number);
 
 	auto health = AddComponent<C_Health>();
+	auto score = AddComponent<C_Score>();
+
+	auto healthObserver = AddComponent<O_HealthBar>();
+	auto subject = AddComponent<C_Subject>();
+	subject->attach(healthObserver);
+
+	auto scoreObserver = AddComponent<O_Score>();
+	subject->attach(scoreObserver);
 }
