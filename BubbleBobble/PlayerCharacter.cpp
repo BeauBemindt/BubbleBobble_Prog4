@@ -4,8 +4,11 @@
 #include "C_InputHandling.h"
 #include "C_Sprite.h"
 #include "C_Collision.h"
+#include "C_Fire.h"
+#include "C_Player.h"
+#include "C_Health.h"
 
-dae::PlayerCharacter::PlayerCharacter()
+dae::PlayerCharacter::PlayerCharacter(int number)
 {
 	SetPosition(300, 50);
 
@@ -14,9 +17,16 @@ dae::PlayerCharacter::PlayerCharacter()
 	auto inputHandler = AddComponent<C_InputHandling>();
 
 	auto sprite = AddComponent<C_Sprite>();
-	sprite->SetTexture("Sprites0.png");
+	sprite->SetTexture("PlayerCharacterSprites.png");
 	sprite->SetRect(0.0f, 0.0f, 16.0f, 16.0f);
 	//sprite->Scale(0.5f);
 
 	auto collision = AddComponent<C_Collision>();
+	
+	auto fire = AddComponent<C_Fire>();
+
+	auto player = AddComponent<C_Player>();
+	player->SetPlayer(number);
+
+	auto health = AddComponent<C_Health>();
 }
