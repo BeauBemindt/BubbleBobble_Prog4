@@ -15,6 +15,7 @@ namespace dae
 
 		void SetTexture(const std::string& filename);
 		void SetPosition(float x, float y);
+        void destroy();
 
 		GameObject() = default;
 		virtual ~GameObject();

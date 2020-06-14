@@ -195,11 +195,20 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
   <ItemGroup>
     <ClInclude Include="Command.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="C_Boulder.h" />
+    <ClInclude Include="C_Bubble.h" />
+    <ClInclude Include="C_BubbleBehaviour.h" />
     <ClInclude Include="C_Collision.h" />
+    <ClInclude Include="C_Fire.h" />
     <ClInclude Include="C_FPS.h" />
+    <ClInclude Include="C_Health.h" />
     <ClInclude Include="C_InputHandling.h" />
+    <ClInclude Include="C_MaitaBehaviour.h" />
     <ClInclude Include="C_Movement.h" />
     <ClInclude Include="C_Observer.h" />
+    <ClInclude Include="C_Player.h" />
+    <ClInclude Include="C_EnemyCollision.h" />
+    <ClInclude Include="C_ZenChanBehaviour.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="PlayerState.h" />
     <ClInclude Include="C_Sprite.h" />
@@ -225,10 +234,19 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
   <ItemGroup>
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="C_Boulder.cpp" />
+    <ClCompile Include="C_Bubble.cpp" />
+    <ClCompile Include="C_BubbleBehaviour.cpp" />
     <ClCompile Include="C_Collision.cpp" />
+    <ClCompile Include="C_Fire.cpp" />
     <ClCompile Include="C_FPS.cpp" />
+    <ClCompile Include="C_Health.cpp" />
     <ClCompile Include="C_InputHandling.cpp" />
+    <ClCompile Include="C_MaitaBehaviour.cpp" />
     <ClCompile Include="C_Movement.cpp" />
+    <ClCompile Include="C_Player.cpp" />
+    <ClCompile Include="C_EnemyCollision.cpp" />
+    <ClCompile Include="C_ZenChanBehaviour.cpp" />
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="PlayerState.cpp" />
     <ClCompile Include="C_Sprite.cpp" />

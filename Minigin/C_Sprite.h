@@ -2,6 +2,7 @@
 #include "Component.h"
 #include "Texture2D.h"
 #include <SDL.h>
+#include <iostream>
 
 namespace dae
 {
@@ -18,6 +19,7 @@ namespace dae
 		bool AnimationTimeReached();
 		float GetWidth() const;
 		float GetHeight() const;
+		void Pause();
 	private:
 		std::shared_ptr<Texture2D> m_Texture;
 		float m_Width;
@@ -26,6 +28,7 @@ namespace dae
 		float m_PosY;
 		SDL_Rect m_Rect;
 		float m_AnimationTimer;
+		bool m_Pause;
 	};
 }
 
